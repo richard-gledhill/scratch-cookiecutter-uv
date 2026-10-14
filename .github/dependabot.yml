@@ -17,9 +17,7 @@ updates:
         patterns:
           - "*"
 
-  # uv, not pip: only the uv ecosystem updates uv.lock. Direct pins in pyproject.toml are
-  # bumped by .github/workflows/update-dependencies.yml; this entry exists for the
-  # transitive lockfile updates that workflow doesn't do. Deliberately not grouped:
+  # uv, not pip: only the uv ecosystem updates uv.lock. Deliberately not grouped:
   # grouped uv workspace updates have open upstream bugs (dependabot-core #15558, #15786).
   # Limit is 10 because ungrouped updates arrive in one monthly burst.
   - package-ecosystem: uv
