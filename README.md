@@ -6,63 +6,120 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)
 [![License](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)
 
-This is a scratch repository template using cookiecutter-uv used to test personal customisation.
+This is a scratch repository generated from a personal fork of [cookiecutter-uv](https://github.com/osprey-oss/cookiecutter-uv),
+a template for Python projects managed with [uv](https://docs.astral.sh/uv/). It is a testing ground: changes to the
+template's generated files, such as the agent rules, the development docs layout and the guard hook, are tried here
+first, before they are moved into the template itself.
+
+The Python package (`scratch_cookiecutter_uv`) is only a placeholder. The value of the repository is its tooling,
+its documentation layout and the AGENTS.md and CONTEXT.md templates for AI coding agents.
 
 - **Github repository**: <https://github.com/richard-gledhill/scratch-cookiecutter-uv/>
-- **Documentation** <https://richard-gledhill.github.io/scratch-cookiecutter-uv/>
+- **Documentation**: <https://richard-gledhill.github.io/scratch-cookiecutter-uv/>
 
-## Getting started with your project
+___
 
-### 1. Create a New Repository
+- [Features](#features)
+- [Requirements](#requirements)
+- [Development](#development)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+___
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:richard-gledhill/scratch-cookiecutter-uv.git
-git push -u origin main
-```
+## Features
 
-### 2. Set Up Your Development Environment
+- Dependency and environment management with uv, with a committed `uv.lock`.
+- Formatting and linting with ruff, static type checking with mypy, and unused-dependency checks with deptry, all run
+  through pre-commit.
+- Tests with pytest, run across Python versions with tox.
+- Documentation site built with MkDocs Material and mkdocstrings.
+- GitHub Actions workflows for checks, tests, docs and releases.
+- Development docs under `docs/development/` (constraints, build plan, ADRs, RFCs, architecture, testing and operations), excluded
+  from the published site.
+- `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
+- A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps spec, constraints and task files under
+  `docs/development/`.
 
-Then, install the environment and the pre-commit hooks with
+## Requirements
+
+- Python 3.11 or later
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- [Git](https://git-scm.com/)
+- `make` to run the shortcuts below. Windows doesn't ship it, so run the commands each target wraps (see the
+  `Makefile`) or install it separately.
+
+## Development
+
+Install the environment and the pre-commit hooks:
 
 ```bash
 make install
 ```
 
-This will also generate your `uv.lock` file
-
-### 3. Run the pre-commit hooks
-
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+Day-to-day commands:
 
 ```bash
-uv run pre-commit run -a
+make check       # lock file consistency, pre-commit hooks, mypy, deptry
+make test        # pytest, including doctests
+make docs        # build and serve the documentation locally
+make docs-test   # check the documentation builds without warnings or errors
+make build       # build the wheel
 ```
 
-### 4. Commit the changes
+Run `make` with no arguments to list every target.
 
-Lastly, commit the changes made by the two steps above to your repository.
+## Testing
 
 ```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
+make test
 ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+Run a single test or a narrower selection:
 
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs/Zensical, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/docs_tool/#deploying-to-github-pages).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+```bash
+uv run python -m pytest tests/test_foo.py -k some_case
+```
 
-## Releasing a new version
+`tox.ini` runs the same tests across the supported Python versions (3.10 to 3.14), and the GitHub Actions workflow in
+`.github/workflows/main.yml` does the same on every pull request and push to `main`.
 
+## Project Structure
 
+```
+├── .claude/              # Claude Code settings and the guard_docs.py hook
+├── .github/              # GitHub Actions workflows and the Python setup action
+├── docs/
+│   ├── index.md          # MkDocs site content (published)
+│   ├── modules.md
+│   └── development/      # development docs, excluded from MkDocs
+├── src/
+│   └── scratch_cookiecutter_uv/
+├── tests/
+├── AGENTS.md             # rules for AI coding agents
+├── CLAUDE.md             # imports AGENTS.md
+├── CONTEXT.md            # domain language
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── mkdocs.yml
+├── pyproject.toml
+└── tox.ini
+```
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](https://github.com/richard-gledhill/scratch-cookiecutter-uv/blob/main/CONTRIBUTING.md) for how to report bugs, suggest features and submit
+pull requests.
+
+And if you are so inclined or use this for commercial work you can
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/richardgledhill)
+
+## License
+
+Released under the MIT License. See [LICENSE](https://github.com/richard-gledhill/scratch-cookiecutter-uv/blob/main/LICENSE) for the full text.
 
 ---
 
