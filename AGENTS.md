@@ -34,6 +34,20 @@ These paths override any default paths in skills or commands:
 - A hook enforces the development paths and protects `conventions.md` and `CONSTRAINTS.md`. If a write is blocked,
   follow the redirect in the hook's message, or ask the user if the file is protected.
 
+## Tracking work
+
+This repository is tied only to the `scratch-cookiecutter-uv` project. Don't link to, reference, or create issues or
+pull requests in any other repository, including any cookiecutter-uv fork or template.
+
+- Track work as GitHub issues in this repository. Label each one `issue`, `bugfix` or `rfc` (a request for change,
+  discussed before it is built).
+- Issues live in the user's GitHub project 6, `scratch-cookiecutter-uv`
+  (<https://github.com/users/richard-gledhill/projects/6>). Add a new issue with
+  `gh project item-add 6 --owner richard-gledhill --url <issue url>`. Don't change the project's fields or views.
+- Create, edit, close or move issues and project items only when the user asks.
+- A decided `rfc` is recorded as an ADR in `docs/development/adr/`; link the issue and the ADR to each other.
+- Reference the issue in commits and PRs (`Closes #N`).
+
 ## Commands
 
 ```bash
