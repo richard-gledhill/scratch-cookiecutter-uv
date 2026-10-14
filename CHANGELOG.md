@@ -7,12 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Documentation
+- track work as labelled issues in project 6 and drop template-fork wording [`38625ab`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/38625ab)
+- :robot: changelog file generated [`9d4b9cf`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/9d4b9cf)
 - :robot: changelog file generated [`b2d22a1`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/b2d22a1)
 
 ### Chore
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #8 from richard-gledhill/docs/issue-tracking [`4035b1e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/4035b1e)
 - Merge pull request #5 from richard-gledhill/dependabot/github_actions/github-actions-dependencies-c1392ceaf0 [`296247e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/296247e)
 
 ## v0.0.1 (2026-10-14)
