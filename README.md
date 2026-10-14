@@ -6,13 +6,12 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)
 [![License](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)
 
-This is a scratch repository generated from a personal fork of [cookiecutter-uv](https://github.com/osprey-oss/cookiecutter-uv),
-a template for Python projects managed with [uv](https://docs.astral.sh/uv/). It is a testing ground: changes to the
-template's generated files, such as the agent rules, the development docs layout and the guard hook, are tried here
-first, before they are moved into the template itself.
+This is a scratch Python project managed with [uv](https://docs.astral.sh/uv/). It is a self-contained
+project: its issues, pull requests, documentation and tooling all live in this repository and are tracked in its own
+GitHub project.
 
 The Python package (`scratch_cookiecutter_uv`) is only a placeholder. The value of the repository is its tooling,
-its documentation layout and the AGENTS.md and CONTEXT.md templates for AI coding agents.
+its documentation layout, and the `AGENTS.md` and `CONTEXT.md` templates for AI coding agents.
 
 - **Github repository**: <https://github.com/richard-gledhill/scratch-cookiecutter-uv/>
 - **Documentation**: <https://richard-gledhill.github.io/scratch-cookiecutter-uv/>
@@ -113,6 +112,9 @@ uv run python -m pytest tests/test_foo.py -k some_case
 
 Contributions are welcome. See [CONTRIBUTING.md](https://github.com/richard-gledhill/scratch-cookiecutter-uv/blob/main/CONTRIBUTING.md) for how to report bugs, suggest features and submit
 pull requests.
+
+Work is tracked as GitHub issues in this repository, labelled `issue`, `bugfix` or `rfc` (a request for change,
+discussed before it is built).
 
 And if you are so inclined or use this for commercial work you can
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/richardgledhill)

@@ -9,7 +9,7 @@ the MkDocs part of `docs/`, one level up.
 | `CONSTRAINTS.md` | The quality bar. Project-wide and long-lived. Read before writing code; never weaken it to make a change pass. Created by the agent workflows, then protected: the guard hook blocks agent edits once it exists. |
 | `conventions.md` | The judgement-based style guide. Read before writing code. Protected: the guard hook blocks agent edits, so the owner changes it. |
 | [`build-plan/`](build-plan/README.md) | The current piece of work: `SPEC.md`, `plan.md` and `todo.md`, plus an `archive/` of finished work. |
-| [`rfcs/`](rfcs/README.md) | Design proposals, before a decision is made. |
+| [`rfcs/`](rfcs/README.md) | Design proposals, before a decision is made. Raised as `rfc` issues; long ones live here. |
 | [`adr/`](adr/README.md) | Architecture decision records, `ADR-NNN-title.md`, sequential, never deleted. |
 | [`architecture/`](architecture/README.md) | Overview, diagrams, data model. |
 | [`testing/`](testing/README.md) | Test strategy and plans. |

@@ -75,3 +75,17 @@ def test_hook_settings_register_guard_script() -> None:
     assert entry["matcher"] == "Write|Edit|MultiEdit"
     assert "guard_docs.py" in entry["hooks"][0]["command"]
     assert (ROOT / ".claude" / "hooks" / "guard_docs.py").is_file()
+
+
+def test_agents_md_ties_repo_to_its_own_issue_tracking() -> None:
+    text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "## Tracking work" in text
+    assert "`issue`, `bugfix` or `rfc`" in text
+    assert "projects/6" in text
+    assert "including any cookiecutter-uv fork or template" in text
+
+
+def test_readme_does_not_link_to_a_template_fork() -> None:
+    text = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "fork" not in text.lower()
+    assert "testing ground" not in text.lower()
