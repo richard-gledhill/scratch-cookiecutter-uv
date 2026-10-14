@@ -18,12 +18,13 @@ actually implemented vs. still partial or deferred. See
 All development documentation lives under `docs/development/`, which is excluded from the MkDocs site.
 These paths override any default paths in skills or commands:
 
-- Spec: `docs/development/SPEC.md` (not root SPEC.md)
-- Constraints: `docs/development/CONSTRAINTS.md` — read before writing code; do not weaken it to make a change pass
-- Plan: `docs/development/tasks/plan.md`
-- Task list: `docs/development/tasks/todo.md`
+- Constraints: `docs/development/CONSTRAINTS.md` — project-wide; read before writing code; do not weaken it to make a change pass
+- Spec: `docs/development/build-plan/SPEC.md` (not root SPEC.md)
+- Plan: `docs/development/build-plan/plan.md`
+- Task list: `docs/development/build-plan/todo.md`
 - ADRs: `docs/development/adr/`, format `ADR-NNN-title.md`; continue the existing sequence
-- Archive a shipped spec to `docs/development/requirements/<feature>.md` before starting a new SPEC.md
+- When the work ships, move `SPEC.md`, `plan.md` and `todo.md` together into
+  `docs/development/build-plan/archive/YYYY-MM-<short-name>/` before starting a new `SPEC.md`
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.

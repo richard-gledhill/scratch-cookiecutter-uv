@@ -6,22 +6,20 @@ the MkDocs part of `docs/`, one level up.
 
 | Path | What goes there |
 |---|---|
-| `SPEC.md` | The current feature or project spec. Created by the agent workflows; holds one feature at a time. |
-| `CONSTRAINTS.md` | The quality bar. Read before writing code; never weaken it to make a change pass. |
-| [`requirements/`](requirements/README.md) | Archived specs, one per shipped feature. |
+| `CONSTRAINTS.md` | The quality bar. Project-wide and long-lived. Read before writing code; never weaken it to make a change pass. Created by the agent workflows. |
+| [`build-plan/`](build-plan/README.md) | The current piece of work: `SPEC.md`, `plan.md` and `todo.md`, plus an `archive/` of finished work. |
 | [`rfcs/`](rfcs/README.md) | Design proposals, before a decision is made. |
 | [`adr/`](adr/README.md) | Architecture decision records, `ADR-NNN-title.md`, sequential, never deleted. |
 | [`architecture/`](architecture/README.md) | Overview, diagrams, data model. |
 | [`testing/`](testing/README.md) | Test strategy and plans. |
 | [`operations/`](operations/README.md) | Runbooks, rollback plans, postmortems. |
-| [`tasks/`](tasks/README.md) | `plan.md` and `todo.md`, created by agents. |
 
-## SPEC.md lifecycle
+## Build plan lifecycle
 
-1. Write `docs/development/SPEC.md` for the feature (the `/spec` workflow creates it).
-2. Plan and build against it. Decisions that outlive the feature become ADRs in `adr/`.
-3. When the feature ships, move the spec to `requirements/<feature>.md`.
-4. Start the next feature with a fresh `SPEC.md`.
+1. Write `build-plan/SPEC.md` for the work (the `/spec` workflow creates it), then `plan.md` and `todo.md`.
+2. Build against them. Decisions that outlive the work become ADRs in `adr/`.
+3. When the work ships, move the spec, plan and todo together into `build-plan/archive/YYYY-MM-<name>/`.
+4. Start the next piece of work with a fresh `SPEC.md`.
 
-`SPEC.md` and `CONSTRAINTS.md` do not exist until a workflow creates them. See [AGENTS.md](../../AGENTS.md)
-for the paths agents must use.
+`CONSTRAINTS.md`, `plan.md` and `todo.md` do not exist until a workflow creates them. See
+[AGENTS.md](../../AGENTS.md) for the paths agents must use.

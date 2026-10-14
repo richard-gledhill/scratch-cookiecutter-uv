@@ -10,6 +10,23 @@ import os
 import sys
 from pathlib import Path
 
+BUILD_PLAN = "docs/development/build-plan"
+# Default locations used by the agent workflows (and old layouts) mapped to where the file belongs.
+REDIRECTS = {
+    "spec.md": f"{BUILD_PLAN}/SPEC.md",
+    "constraints.md": "docs/development/CONSTRAINTS.md",
+    "plan.md": f"{BUILD_PLAN}/plan.md",
+    "todo.md": f"{BUILD_PLAN}/todo.md",
+    "tasks/plan.md": f"{BUILD_PLAN}/plan.md",
+    "tasks/todo.md": f"{BUILD_PLAN}/todo.md",
+    "docs/development/spec.md": f"{BUILD_PLAN}/SPEC.md",
+}
+PREFIX_REDIRECTS = {
+    "tasks/": f"{BUILD_PLAN}/",
+    "docs/development/tasks/": f"{BUILD_PLAN}/",
+    "docs/development/requirements/": f"{BUILD_PLAN}/archive/YYYY-MM-<name>/",
+}
+
 data = json.load(sys.stdin)
 path = data.get("tool_input", {}).get("file_path")
 if not path:
@@ -21,9 +38,7 @@ try:
 except ValueError:
     sys.exit(0)  # outside the repo
 
-if rel in ("spec.md", "constraints.md") or rel.startswith("tasks/"):
-    print(
-        f"Blocked: {rel} belongs under docs/development/ (see AGENTS.md). Write it there instead.",
-        file=sys.stderr,
-    )
+target = REDIRECTS.get(rel) or next((t for prefix, t in PREFIX_REDIRECTS.items() if rel.startswith(prefix)), None)
+if target:
+    print(f"Blocked: {rel} is not a development docs path (see AGENTS.md). Write {target} instead.", file=sys.stderr)
     sys.exit(2)

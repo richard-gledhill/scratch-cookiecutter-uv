@@ -5,7 +5,7 @@ import pytest
 
 ROOT = Path(__file__).parent.parent
 DEV_DOCS = ROOT / "docs" / "development"
-SUBFOLDERS = ["requirements", "rfcs", "adr", "architecture", "testing", "operations", "tasks"]
+SUBFOLDERS = ["build-plan", "build-plan/archive", "rfcs", "adr", "architecture", "testing", "operations"]
 
 
 def test_dev_docs_index_readme_exists() -> None:
@@ -17,10 +17,16 @@ def test_dev_docs_subfolder_readme_exists(folder: str) -> None:
     assert (DEV_DOCS / folder / "README.md").is_file()
 
 
-def test_dev_docs_no_spec_or_constraints_created() -> None:
+def test_dev_docs_agent_files_not_shipped() -> None:
     # Created later by the agent workflows, not shipped.
-    assert not (DEV_DOCS / "SPEC.md").exists()
     assert not (DEV_DOCS / "CONSTRAINTS.md").exists()
+    assert not (DEV_DOCS / "build-plan" / "plan.md").exists()
+    assert not (DEV_DOCS / "build-plan" / "todo.md").exists()
+
+
+@pytest.mark.parametrize("old_path", ["SPEC.md", "tasks", "requirements"])
+def test_dev_docs_old_layout_absent(old_path: str) -> None:
+    assert not (DEV_DOCS / old_path).exists()
 
 
 def test_mkdocs_excludes_development_folder() -> None:
@@ -39,7 +45,8 @@ def test_claude_md_imports_agents_md() -> None:
 def test_agents_md_documents_dev_docs_paths() -> None:
     text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
     assert "## Development docs location" in text
-    assert "`docs/development/SPEC.md`" in text
+    assert "`docs/development/build-plan/SPEC.md`" in text
+    assert "`docs/development/CONSTRAINTS.md`" in text
     assert "You may edit and add MkDocs pages" in text
 
 

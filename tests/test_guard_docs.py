@@ -44,22 +44,41 @@ def run_hook(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.Cap
 
 
 @pytest.mark.parametrize(
-    "rel_path",
-    ["SPEC.md", "CONSTRAINTS.md", "tasks/plan.md", "tasks/todo.md", "spec.md", "Tasks/Plan.md", "Constraints.MD"],
+    ("rel_path", "target"),
+    [
+        ("SPEC.md", "docs/development/build-plan/SPEC.md"),
+        ("spec.md", "docs/development/build-plan/SPEC.md"),
+        ("CONSTRAINTS.md", "docs/development/CONSTRAINTS.md"),
+        ("Constraints.MD", "docs/development/CONSTRAINTS.md"),
+        ("tasks/plan.md", "docs/development/build-plan/plan.md"),
+        ("Tasks/Plan.md", "docs/development/build-plan/plan.md"),
+        ("tasks/todo.md", "docs/development/build-plan/todo.md"),
+        ("tasks/notes.md", "docs/development/build-plan/"),
+        ("plan.md", "docs/development/build-plan/plan.md"),
+        ("todo.md", "docs/development/build-plan/todo.md"),
+        ("docs/development/SPEC.md", "docs/development/build-plan/SPEC.md"),
+        ("docs/development/tasks/plan.md", "docs/development/build-plan/"),
+        ("docs/development/requirements/auth.md", "docs/development/build-plan/archive/"),
+    ],
 )
-def test_guard_root_dev_docs_blocked_redirect(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+def test_guard_misplaced_dev_docs_blocked_redirect(
+    tmp_path: Path, rel_path: str, target: str, run_hook: HookRunner
+) -> None:
     result = run_hook(str(tmp_path / rel_path))
     assert result.returncode == 2
-    assert "docs/development/" in result.stderr
+    assert f"Write {target}" in result.stderr
 
 
 @pytest.mark.parametrize(
     "rel_path",
     [
-        "docs/development/SPEC.md",
+        "docs/development/build-plan/SPEC.md",
+        "docs/development/build-plan/plan.md",
+        "docs/development/build-plan/todo.md",
+        "docs/development/build-plan/archive/2026-10-auth-flow/SPEC.md",
+        "docs/development/CONSTRAINTS.md",
         "docs/development/adr/ADR-001-x.md",
-        "docs/development/tasks/plan.md",
-        "Docs/Development/SPEC.md",
+        "Docs/Development/Build-Plan/SPEC.md",
         "src/x.py",
         "docs/index.md",
         "docs/new-page.md",
@@ -72,7 +91,7 @@ def test_guard_allowed_paths_pass(tmp_path: Path, rel_path: str, run_hook: HookR
 
 def test_guard_relative_path_resolved_against_root(run_hook: HookRunner) -> None:
     assert run_hook("SPEC.md").returncode == 2
-    assert run_hook("docs/development/SPEC.md").returncode == 0
+    assert run_hook("docs/development/build-plan/SPEC.md").returncode == 0
 
 
 def test_guard_path_outside_repo_passes(tmp_path: Path, run_hook: HookRunner) -> None:
@@ -87,7 +106,12 @@ def test_guard_no_file_path_passes(run_hook: HookRunner) -> None:
 @pytest.mark.skipif(sys.platform != "win32", reason="Windows paths are case-insensitive")
 @pytest.mark.parametrize(
     ("rel_path", "expected"),
-    [("SPEC.md", 2), ("tasks\\plan.md", 2), ("docs\\development\\SPEC.md", 0), ("DOCS\\Development\\Spec.md", 0)],
+    [
+        ("SPEC.md", 2),
+        ("tasks\\plan.md", 2),
+        ("docs\\development\\build-plan\\SPEC.md", 0),
+        ("DOCS\\Development\\Build-Plan\\Spec.md", 0),
+    ],
 )
 def test_guard_windows_mixed_case_paths_match(
     tmp_path: Path, rel_path: str, expected: int, run_hook: HookRunner
