@@ -7,6 +7,9 @@ edit_uri: edit/main/docs/
 repo_name: richard-gledhill/scratch-cookiecutter-uv
 copyright: Maintained by <a href="https://richard-gledhill.com">richard-gledhill</a>.
 
+exclude_docs: |
+  development/
+
 nav:
   - Home: index.md
   - Modules: modules.md
