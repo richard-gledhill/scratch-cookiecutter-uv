@@ -7,6 +7,7 @@ the MkDocs part of `docs/`, one level up.
 | Path | What goes there |
 |---|---|
 | `CONSTRAINTS.md` | The quality bar. Project-wide and long-lived. Read before writing code; never weaken it to make a change pass. Created by the agent workflows. |
+| `conventions.md` | The judgement-based style guide. Read before writing code. Change only with the owner's approval. |
 | [`build-plan/`](build-plan/README.md) | The current piece of work: `SPEC.md`, `plan.md` and `todo.md`, plus an `archive/` of finished work. |
 | [`rfcs/`](rfcs/README.md) | Design proposals, before a decision is made. |
 | [`adr/`](adr/README.md) | Architecture decision records, `ADR-NNN-title.md`, sequential, never deleted. |
