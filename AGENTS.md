@@ -41,12 +41,35 @@ pull requests in any other repository, including any cookiecutter-uv fork or tem
 
 - Track work as GitHub issues in this repository. Label each one `issue`, `bugfix` or `rfc` (a request for change,
   discussed before it is built).
-- Issues live in the user's GitHub project 6, `scratch-cookiecutter-uv`
-  (<https://github.com/users/richard-gledhill/projects/6>). Add a new issue with
-  `gh project item-add 6 --owner richard-gledhill --url <issue url>`. Don't change the project's fields or views.
 - Create, edit, close or move issues and project items only when the user asks.
 - A decided `rfc` is recorded as an ADR in `docs/development/adr/`; link the issue and the ADR to each other.
 - Reference the issue in commits and PRs (`Closes #N`).
+
+### When a GitHub Project is linked to the repository
+
+This repository's project is the user's GitHub project 6, `scratch-cookiecutter-uv`
+(<https://github.com/users/richard-gledhill/projects/6>). Check it is still linked with
+`gh repo view --json projectsV2`; if no project is linked, skip this section.
+
+- **Access.** `gh project` commands need the `project` token scope (`gh auth status` lists it). If it is missing, ask
+  the user to run `gh auth refresh -s project`; never handle the token yourself.
+- **Don't change the project's setup.** Leave its fields, field options and views alone. Setting a value on an item
+  (Status, Iteration, Priority) is fine; adding or renaming a field or option is not.
+- **Every new issue goes on the board.** After `gh issue create`, add it with
+  `gh project item-add 6 --owner richard-gledhill --url <issue url> --format json`, then set its Status to `Backlog`
+  explicitly with `gh project item-edit` (look up the field and option IDs with
+  `gh project field-list 6 --owner richard-gledhill --format json`). Don't rely on a default status.
+- **Leave Iteration and Priority empty** unless the user asks. Planning is the user's call.
+- **Views filter what is visible.** The project uses the iterative template: the "Current iteration" and
+  "Next iteration" boards only show items with that iteration set, so a new Backlog item appears on the
+  "Prioritized backlog" board, not on "Current iteration". Tell the user this when they can't see new items, rather
+  than setting an iteration to make them appear.
+- **Status follows the work**, for an issue the user has asked you to work on: `In progress` when you start,
+  `In review` when its PR is open, `Done` when the PR merges and closes the issue (`Closes #N`). `Ready` is set by
+  the user.
+- **Verify, then report.** `gh project` calls occasionally fail or lag. Retry a failed call, check the result with
+  `gh project item-list 6 --owner richard-gledhill --format json` (an item can take a few seconds to appear), and
+  list the issue numbers, labels and status you set.
 
 ## Commands
 

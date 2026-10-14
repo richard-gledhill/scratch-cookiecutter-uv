@@ -83,6 +83,8 @@ def test_agents_md_ties_repo_to_its_own_issue_tracking() -> None:
     assert "`issue`, `bugfix` or `rfc`" in text
     assert "projects/6" in text
     assert "including any cookiecutter-uv fork or template" in text
+    assert "### When a GitHub Project is linked to the repository" in text
+    assert "set its Status to `Backlog`" in text
 
 
 def test_readme_does_not_link_to_a_template_fork() -> None:
