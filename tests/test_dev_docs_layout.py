@@ -38,8 +38,27 @@ def test_adr_dir_points_at_adr_folder() -> None:
     assert (ROOT / ".adr-dir").read_text(encoding="utf-8").strip() == "docs/development/adr"
 
 
-def test_claude_md_imports_agents_md() -> None:
-    assert (ROOT / "CLAUDE.md").read_text(encoding="utf-8").strip() == "@AGENTS.md"
+def test_claude_md_imports_agents_and_conventions() -> None:
+    lines = (ROOT / "CLAUDE.md").read_text(encoding="utf-8").split()
+    assert lines == ["@AGENTS.md", "@docs/development/conventions.md"]
+
+
+def test_conventions_md_exists() -> None:
+    assert (DEV_DOCS / "conventions.md").is_file()
+
+
+def test_agents_md_points_at_conventions_without_copying_them() -> None:
+    text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "Read [`docs/development/conventions.md`](docs/development/conventions.md) before writing code." in text
+    assert "reference `docs/development/conventions.md` instead of restating code style" in text
+    assert "Don't change `conventions.md` or `CONSTRAINTS.md`" in text
+    # The conventions live in one place; a summary copy in AGENTS.md would drift.
+    assert "**Module layout**" not in text
+    assert "**Module layout**" in (DEV_DOCS / "conventions.md").read_text(encoding="utf-8")
+
+
+def test_contributing_links_to_conventions() -> None:
+    assert "docs/development/conventions.md" in (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
 
 
 def test_agents_md_documents_dev_docs_paths() -> None:

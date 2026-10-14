@@ -69,6 +69,33 @@ def test_guard_misplaced_dev_docs_blocked_redirect(
     assert f"Write {target}" in result.stderr
 
 
+def make_protected_files(root: Path) -> None:
+    (root / "docs" / "development").mkdir(parents=True, exist_ok=True)
+    for name in ("conventions.md", "CONSTRAINTS.md"):
+        (root / "docs" / "development" / name).write_text("x", encoding="utf-8")
+
+
+@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md"])
+def test_guard_existing_protected_file_blocked(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    make_protected_files(tmp_path)
+    result = run_hook(str(tmp_path / rel_path))
+    assert result.returncode == 2
+    assert "protected" in result.stderr
+
+
+def test_guard_protected_file_mixed_case_matches_filesystem(tmp_path: Path, run_hook: HookRunner) -> None:
+    make_protected_files(tmp_path)
+    mixed = tmp_path / "Docs" / "Development" / "Conventions.MD"
+    # A differently-cased path is the same file only on a case-insensitive filesystem (Windows, macOS).
+    expected = 2 if mixed.exists() else 0
+    assert run_hook(str(mixed)).returncode == expected
+
+
+@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md"])
+def test_guard_missing_protected_file_creation_passes(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    assert run_hook(str(tmp_path / rel_path)).returncode == 0
+
+
 @pytest.mark.parametrize(
     "rel_path",
     [
