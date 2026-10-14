@@ -20,7 +20,8 @@ These paths override any default paths in skills or commands:
 
 - Constraints: `docs/development/CONSTRAINTS.md` — project-wide; read before writing code; do not weaken it to make a change pass
 - Conventions: `docs/development/conventions.md` — the style guide. Don't change `conventions.md` or `CONSTRAINTS.md`
-  without asking, and never to make them match code you just wrote
+  without asking, and never to make them match code you just wrote. The hook blocks edits to both once they exist;
+  describe the change you want in your summary and let the user make or approve it
 - Spec: `docs/development/build-plan/SPEC.md` (not root SPEC.md)
 - Plan: `docs/development/build-plan/plan.md`
 - Task list: `docs/development/build-plan/todo.md`
@@ -30,7 +31,8 @@ These paths override any default paths in skills or commands:
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.
-- A hook enforces the development paths. If a write is blocked, follow the redirect in the hook's message.
+- A hook enforces the development paths and protects `conventions.md` and `CONSTRAINTS.md`. If a write is blocked,
+  follow the redirect in the hook's message, or ask the user if the file is protected.
 
 ## Commands
 

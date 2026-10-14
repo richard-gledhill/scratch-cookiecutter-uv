@@ -41,7 +41,7 @@ ___
   from the published site.
 - `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
 - A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps spec, constraints and task files under
-  `docs/development/`.
+  `docs/development/` and blocks agent edits to `conventions.md` and `CONSTRAINTS.md`.
 
 ## Requirements
 

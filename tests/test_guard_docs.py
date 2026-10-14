@@ -71,6 +71,24 @@ def test_guard_misplaced_dev_docs_blocked_redirect(
 
 @pytest.mark.parametrize(
     "rel_path",
+    ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md", "Docs/Development/Conventions.MD"],
+)
+def test_guard_existing_protected_file_blocked(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    for name in ("conventions.md", "CONSTRAINTS.md"):
+        (tmp_path / "docs" / "development").mkdir(parents=True, exist_ok=True)
+        (tmp_path / "docs" / "development" / name).write_text("x", encoding="utf-8")
+    result = run_hook(str(tmp_path / rel_path))
+    assert result.returncode == 2
+    assert "protected" in result.stderr
+
+
+@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md"])
+def test_guard_missing_protected_file_creation_passes(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    assert run_hook(str(tmp_path / rel_path)).returncode == 0
+
+
+@pytest.mark.parametrize(
+    "rel_path",
     [
         "docs/development/build-plan/SPEC.md",
         "docs/development/build-plan/plan.md",

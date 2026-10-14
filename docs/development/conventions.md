@@ -4,7 +4,7 @@ The judgement-based style guide for this project. Agents read it before writing 
 
 `CONSTRAINTS.md` is the measured, enforced bar (coverage, type errors, security checks). This file is the style
 guide that tools can't check. A new rule belongs here if it is a judgement call, and in `CONSTRAINTS.md` if a tool
-enforces it. Change either file only with the owner's approval.
+enforces it. Agents can't edit either file (the guard hook blocks it): change them yourself, or approve the change.
 
 **Design**
 - Prefer deep modules: a small interface with a lot of behaviour behind it.
