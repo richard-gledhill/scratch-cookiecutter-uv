@@ -25,7 +25,7 @@ enforces it. Agents can't edit either file (the guard hook blocks it): change th
   module that emitted it. Only `<entry-point package>` configures logging (handlers and levels); `<library package>`
   just emits, and its `__init__.py` adds a `NullHandler` to the package logger and nothing else.
 - Lint, type-check and platform rules (`ruff` and mypy config, supported platforms) are enforced by tools, so they
-  live in [CONSTRAINTS.md](constraints.md).
+  live in [constraints.md](constraints.md).
 
 **Module layout**
 - Order a module like this, omitting what it doesn't have:
@@ -71,8 +71,8 @@ enforces it. Agents can't edit either file (the guard hook blocks it): change th
   <the source>. A test fails if the committed file is stale.
 - `README.md` and `docs/<user guide>.md` are published; `docs/development/` is not, so link to it
   by GitHub URL.
-* Core Repository Files: Use ALL-CAPS for major root-level files (e.g., `README.md`, `LICENSE`, `AGENTS.md`).
-* Secondary Documentation: Use lowercase for specific topical docs (e.g., `conventions.md`, `constraints.md`).
+- Core Repository Files: Use ALL-CAPS for major root-level files (e.g., `README.md`, `LICENSE`, `AGENTS.md`).
+- Secondary Documentation: Use lowercase for specific topical docs (e.g., `conventions.md`, `constraints.md`).
 - Record a deferred or future item once, and link to it. A gap or small postponed item goes in
   `docs/development/<roadmap>.md`; a feature outside the current scope, or code removed from it, goes in
   `docs/development/<backlog>.md`.
