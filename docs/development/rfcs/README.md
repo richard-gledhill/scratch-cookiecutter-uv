@@ -1,8 +1,8 @@
 # Request for Change
 
-Design proposals written before a decision is made: the problem, the options, and a recommendation.
+RFCs live in the tracker, not here: they are GitHub issues in this repository labelled `rfc`, on the
+[project board](https://github.com/users/richard-gledhill/projects/6). The issue is the single source of truth, so no
+RFC files are kept in this folder.
 
-RFCs are raised and discussed as GitHub issues in this repository, labelled `rfc`, and tracked in the project
-board. Once a proposal is decided, record the outcome as an ADR in [`../adr/`](../adr/README.md) and link the issue
-and the ADR to each other. Use this folder only for a proposal that is too long to keep in an issue, named
-`RFC-NNN-title.md`.
+Once an RFC is decided, record the outcome as an ADR in [`../adr/`](../adr/README.md) and link the ADR and the issue
+to each other.

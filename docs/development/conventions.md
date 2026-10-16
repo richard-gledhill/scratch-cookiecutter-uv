@@ -2,8 +2,8 @@
 
 The judgement-based style guide for this project. Agents read it before writing code (see [AGENTS.md](../../AGENTS.md)).
 
-`CONSTRAINTS.md` is the measured, enforced bar (coverage, type errors, security checks). This file is the style
-guide that tools can't check. A new rule belongs here if it is a judgement call, and in `CONSTRAINTS.md` if a tool
+`constraints.md` is the measured, enforced bar (coverage, type errors, security checks). This file is the style
+guide that tools can't check. A new rule belongs here if it is a judgement call, and in `constraints.md` if a tool
 enforces it. Agents can't edit either file (the guard hook blocks it): change them yourself, or approve the change.
 
 **Design**
@@ -24,12 +24,8 @@ enforces it. Agents can't edit either file (the guard hook blocks it): change th
   The underscore marks it private: never import another module's logger, so a record is always attributed to the
   module that emitted it. Only `<entry-point package>` configures logging (handlers and levels); `<library package>`
   just emits, and its `__init__.py` adds a `NullHandler` to the package logger and nothing else.
-- `ruff` config lives only in the root `pyproject.toml`<; per-package `pyproject.toml` files carry
-  just their own dependencies, if a workspace>. mypy is <strict> and covers `<source path>` (not tests).
-- Code must import and type-check on <platforms, e.g. Linux (CI) and Windows>. Some names exist on one only
-  (<examples>). Write such constants out, import platform modules inside the function that uses them, and guard the
-  body with `if sys.platform == "<platform>":` so mypy skips it elsewhere. `make check` runs mypy for each
-  platform for this reason.
+- Lint, type-check and platform rules (`ruff` and mypy config, supported platforms) are enforced by tools, so they
+  live in [constraints.md](constraints.md).
 
 **Module layout**
 - Order a module like this, omitting what it doesn't have:
@@ -75,6 +71,8 @@ enforces it. Agents can't edit either file (the guard hook blocks it): change th
   <the source>. A test fails if the committed file is stale.
 - `README.md` and `docs/<user guide>.md` are published; `docs/development/` is not, so link to it
   by GitHub URL.
+- Core Repository Files: Use ALL-CAPS for major root-level files (e.g., `README.md`, `LICENSE`, `AGENTS.md`).
+- Secondary Documentation: Use lowercase for specific topical docs (e.g., `conventions.md`, `constraints.md`).
 - Record a deferred or future item once, and link to it. A gap or small postponed item goes in
   `docs/development/<roadmap>.md`; a feature outside the current scope, or code removed from it, goes in
   `docs/development/<backlog>.md`.

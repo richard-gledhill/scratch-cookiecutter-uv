@@ -46,19 +46,18 @@ def run_hook(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.Cap
 @pytest.mark.parametrize(
     ("rel_path", "target"),
     [
-        ("SPEC.md", "docs/development/build-plan/SPEC.md"),
-        ("spec.md", "docs/development/build-plan/SPEC.md"),
-        ("CONSTRAINTS.md", "docs/development/CONSTRAINTS.md"),
-        ("Constraints.MD", "docs/development/CONSTRAINTS.md"),
-        ("tasks/plan.md", "docs/development/build-plan/plan.md"),
-        ("Tasks/Plan.md", "docs/development/build-plan/plan.md"),
-        ("tasks/todo.md", "docs/development/build-plan/todo.md"),
-        ("tasks/notes.md", "docs/development/build-plan/"),
-        ("plan.md", "docs/development/build-plan/plan.md"),
-        ("todo.md", "docs/development/build-plan/todo.md"),
-        ("docs/development/SPEC.md", "docs/development/build-plan/SPEC.md"),
-        ("docs/development/tasks/plan.md", "docs/development/build-plan/"),
-        ("docs/development/requirements/auth.md", "docs/development/build-plan/archive/"),
+        ("SPEC.md", "docs/development/plan/SPEC.md"),
+        ("spec.md", "docs/development/plan/SPEC.md"),
+        ("CONSTRAINTS.md", "docs/development/constraints.md"),
+        ("Constraints.MD", "docs/development/constraints.md"),
+        ("tasks/plan.md", "docs/development/plan/plan.md"),
+        ("Tasks/Plan.md", "docs/development/plan/plan.md"),
+        ("tasks/todo.md", "docs/development/plan/todo.md"),
+        ("tasks/notes.md", "docs/development/plan/"),
+        ("plan.md", "docs/development/plan/plan.md"),
+        ("todo.md", "docs/development/plan/todo.md"),
+        ("docs/development/SPEC.md", "docs/development/plan/SPEC.md"),
+        ("docs/development/tasks/plan.md", "docs/development/plan/"),
     ],
 )
 def test_guard_misplaced_dev_docs_blocked_redirect(
@@ -71,11 +70,11 @@ def test_guard_misplaced_dev_docs_blocked_redirect(
 
 def make_protected_files(root: Path) -> None:
     (root / "docs" / "development").mkdir(parents=True, exist_ok=True)
-    for name in ("conventions.md", "CONSTRAINTS.md"):
+    for name in ("conventions.md", "constraints.md"):
         (root / "docs" / "development" / name).write_text("x", encoding="utf-8")
 
 
-@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md"])
+@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/constraints.md"])
 def test_guard_existing_protected_file_blocked(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
     make_protected_files(tmp_path)
     result = run_hook(str(tmp_path / rel_path))
@@ -91,21 +90,44 @@ def test_guard_protected_file_mixed_case_matches_filesystem(tmp_path: Path, run_
     assert run_hook(str(mixed)).returncode == expected
 
 
-@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/CONSTRAINTS.md"])
+@pytest.mark.parametrize("rel_path", ["docs/development/conventions.md", "docs/development/constraints.md"])
 def test_guard_missing_protected_file_creation_passes(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
     assert run_hook(str(tmp_path / rel_path)).returncode == 0
 
 
 @pytest.mark.parametrize(
     "rel_path",
+    ["docs/development/requirements/auth-flow-prd.md", "docs/development/requirements/archive/old-prd.md"],
+)
+def test_guard_existing_requirements_file_blocked(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    existing = tmp_path / rel_path
+    existing.parent.mkdir(parents=True)
+    existing.write_text("Status: Draft", encoding="utf-8")
+    result = run_hook(str(existing))
+    assert result.returncode == 2
+    assert "protected" in result.stderr
+
+
+@pytest.mark.parametrize(
+    "rel_path",
+    ["docs/development/requirements/auth-flow-prd.md", "docs/development/requirements/archive/old-prd.md"],
+)
+def test_guard_new_requirements_file_creation_passes(tmp_path: Path, rel_path: str, run_hook: HookRunner) -> None:
+    (tmp_path / "docs" / "development" / "requirements").mkdir(parents=True)
+    assert run_hook(str(tmp_path / rel_path)).returncode == 0
+
+
+@pytest.mark.parametrize(
+    "rel_path",
     [
-        "docs/development/build-plan/SPEC.md",
-        "docs/development/build-plan/plan.md",
-        "docs/development/build-plan/todo.md",
-        "docs/development/build-plan/archive/2026-10-auth-flow/SPEC.md",
-        "docs/development/CONSTRAINTS.md",
+        "docs/development/plan/SPEC.md",
+        "docs/development/plan/plan.md",
+        "docs/development/plan/todo.md",
+        "docs/development/plan/archive/2026-10-auth-flow/SPEC.md",
+        "docs/development/constraints.md",
         "docs/development/adr/ADR-001-x.md",
-        "Docs/Development/Build-Plan/SPEC.md",
+        "Docs/Development/Plan/SPEC.md",
+        "docs/development/requirements/auth-flow-prd.md",
         "src/x.py",
         "docs/index.md",
         "docs/new-page.md",
@@ -118,7 +140,7 @@ def test_guard_allowed_paths_pass(tmp_path: Path, rel_path: str, run_hook: HookR
 
 def test_guard_relative_path_resolved_against_root(run_hook: HookRunner) -> None:
     assert run_hook("SPEC.md").returncode == 2
-    assert run_hook("docs/development/build-plan/SPEC.md").returncode == 0
+    assert run_hook("docs/development/plan/SPEC.md").returncode == 0
 
 
 def test_guard_path_outside_repo_passes(tmp_path: Path, run_hook: HookRunner) -> None:
@@ -136,8 +158,8 @@ def test_guard_no_file_path_passes(run_hook: HookRunner) -> None:
     [
         ("SPEC.md", 2),
         ("tasks\\plan.md", 2),
-        ("docs\\development\\build-plan\\SPEC.md", 0),
-        ("DOCS\\Development\\Build-Plan\\Spec.md", 0),
+        ("docs\\development\\plan\\SPEC.md", 0),
+        ("DOCS\\Development\\Plan\\Spec.md", 0),
     ],
 )
 def test_guard_windows_mixed_case_paths_match(
