@@ -47,7 +47,8 @@ ___
 
 ## Requirements
 
-- Python 3.11 or later
+- Python 3.11 or later. `.python-version` pins development to 3.11, the minimum supported version, so `uv sync` and
+  `uv run` use it (uv downloads it if it isn't installed). `tox` and CI still test 3.11 to 3.14.
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [Git](https://git-scm.com/)
 - `make` to run the shortcuts below. Windows doesn't ship it, so run the commands each target wraps (see the

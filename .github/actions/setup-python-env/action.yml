@@ -18,6 +18,11 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
+    # Override .python-version so every later uv command in the job uses the requested interpreter.
+    - name: Point uv at the requested Python
+      run: echo "UV_PYTHON=${{ inputs.python-version }}" >> "$GITHUB_ENV"
+      shell: bash
+
     - name: Install uv
       uses: astral-sh/setup-uv@v7
       with:
