@@ -22,16 +22,25 @@ These paths override any default paths in skills or commands:
 - Conventions: `docs/development/conventions.md` — the style guide. Don't change `conventions.md` or `CONSTRAINTS.md`
   without asking, and never to make them match code you just wrote. The hook blocks edits to both once they exist;
   describe the change you want in your summary and let the user make or approve it
-- Spec: `docs/development/build-plan/SPEC.md` (not root SPEC.md)
-- Plan: `docs/development/build-plan/plan.md`
-- Task list: `docs/development/build-plan/todo.md`
+- Requirements (PRDs, product briefs, user stories) live in `docs/development/requirements/`. Don't edit an existing
+  requirements doc without asking. Create a new one only when the user asks.
+- Spec: `docs/development/plan/SPEC.md` (not root SPEC.md)
+- Plan: `docs/development/plan/plan.md`
+- Task list: `docs/development/plan/todo.md`
+- SPEC.md is the technical spec for the current work. Link to its source in `requirements/`, and reference
+  `conventions.md`, `CONSTRAINTS.md` and `testing/` instead of restating them. Record only what's specific to this work.
 - ADRs: `docs/development/adr/`, format `ADR-NNN-title.md`; continue the existing sequence
-- When the work ships, move `SPEC.md`, `plan.md` and `todo.md` together into
-  `docs/development/build-plan/archive/YYYY-MM-<short-name>/` before starting a new `SPEC.md`
+- When work ships, move `SPEC.md`, `plan.md` and `todo.md` together into
+  `docs/development/plan/archive/<YYYY-MM-feature>/`, and update the requirement's Status.
+  If `plan/` already has an unfinished plan for different work, stop and ask.
+- RFCs: if the project uses a GitHub Project, GitHub Issues or another tracker for RFCs, that tracker is the single
+  source of truth. Don't create or copy RFCs into `docs/development/rfcs/`; refer to the issue instead. When an RFC is
+  decided, record it as an ADR and link the ADR and issue both ways. Use `rfcs/` files only if no tracker exists.
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.
-- A hook enforces the development paths and protects `conventions.md` and `CONSTRAINTS.md`. If a write is blocked,
+- A hook enforces the development paths and protects `conventions.md`, `CONSTRAINTS.md` and existing
+  files in `requirements/`. If a write is blocked,
   follow the redirect in the hook's message, or ask the user if the file is protected.
 
 ## Tracking work
@@ -161,11 +170,9 @@ make test    # pytest --doctest-modules with coverage
 
 ### Rules
 
-- Fix the code, not the check. Never skip, delete, or weaken a test, and never silence a check:
-  no `# type: ignore`, `# noqa`, `SKIP=`, `--no-verify`, or loosened <type checker>/<dependency checker>/pre-commit config,
-  unless I've asked for it.
+- The quality bar, including what never to silence or weaken, is in
+  [`docs/development/CONSTRAINTS.md`](docs/development/CONSTRAINTS.md). Fix the code, not the check.
 - If you believe a test is wrong, explain why in your final response before changing it.
-- Add or update tests for any behavior you change.
 - If a failure persists that you can't fix, or that existed before your change, or is caused by the
   environment (network, missing tools), stop. Don't report the task as complete. Say what failed and why.
 

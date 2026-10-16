@@ -36,7 +36,7 @@ ___
 - Tests with pytest, run across Python versions with tox.
 - Documentation site built with MkDocs Material and mkdocstrings.
 - GitHub Actions workflows for checks, tests, docs and releases.
-- Development docs under `docs/development/` (constraints, build plan, ADRs, RFCs, architecture, testing and operations), excluded
+- Development docs under `docs/development/` (constraints, requirements, plan, ADRs, RFCs, architecture, testing and operations), excluded
   from the published site.
 - `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
 - A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps spec, constraints and task files under
