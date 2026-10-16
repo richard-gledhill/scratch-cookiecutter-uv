@@ -29,11 +29,11 @@ dev = [
     "tox-uv>=1.33.4",
     "deptry>=0.25.1",
     "mypy>=1.19.1",
-
     "ruff>=0.15.7",
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.6",
     "mkdocstrings[python]>=1.0.3",
+    "pytest-cov>=7.1.0",
 ]
 
 [build-system]
@@ -55,6 +55,14 @@ show_error_codes = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
 
 [tool.ruff]
 target-version = "py311"
