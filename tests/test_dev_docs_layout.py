@@ -96,6 +96,8 @@ def test_agents_md_ties_repo_to_its_own_issue_tracking() -> None:
     assert "including any cookiecutter-uv fork or template" in text
     assert "### When a GitHub Project is linked to the repository" in text
     assert "set its Status to `Backlog`" in text
+    assert "**Backlog vs sprint.**" in text
+    assert "Don't set `Done` by hand" in text
 
 
 def test_readme_does_not_link_to_a_template_fork() -> None:

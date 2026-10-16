@@ -68,14 +68,20 @@ This repository's project is the user's GitHub project 6, `scratch-cookiecutter-
   `gh project item-add 6 --owner richard-gledhill --url <issue url> --format json`, then set its Status to `Backlog`
   explicitly with `gh project item-edit` (look up the field and option IDs with
   `gh project field-list 6 --owner richard-gledhill --format json`). Don't rely on a default status.
-- **Leave Iteration and Priority empty** unless the user asks. Planning is the user's call.
-- **Views filter what is visible.** The project uses the iterative template: the "Current iteration" and
-  "Next iteration" boards only show items with that iteration set, so a new Backlog item appears on the
-  "Prioritized backlog" board, not on "Current iteration". Tell the user this when they can't see new items, rather
-  than setting an iteration to make them appear.
-- **Status follows the work**, for an issue the user has asked you to work on: `In progress` when you start,
-  `In review` when its PR is open, `Done` when the PR merges and closes the issue (`Closes #N`). `Ready` is set by
-  the user.
+- **Built-in workflows are on**: auto-add to project, item added, item closed, auto-close issue, pull request
+  linked, pull request merged. Still add each new issue and set `Backlog` yourself (`item-add` returns the existing
+  item if auto-add got there first), but leave the rest of the status changes the workflows make to them.
+- **Backlog vs sprint.** New issues belong in the backlog: Status `Backlog`, no Iteration, no Priority. The
+  "Prioritized backlog" board shows them. "Current iteration" and "Next iteration" are sprint boards filtered to
+  `iteration:@current` and `iteration:@next`, so an issue appears there only once the user plans it by setting its
+  Iteration. If the user can't see new items, explain the filter; don't set an iteration to make them appear.
+- **Planning only when asked.** Setting Iteration, Priority or `Ready` is the user's call, and so is rolling
+  unfinished work over to the next iteration. When asked, set Iteration with
+  `gh project item-edit --iteration-id` and Priority with `--single-select-option-id`, taking the IDs from
+  `gh project field-list 6 --owner richard-gledhill --format json`.
+- **Status follows the work**, for an issue the user has asked you to work on: set `In progress` when you start and
+  `In review` when its PR is open. Don't set `Done` by hand: merging a PR with `Closes #N` closes the issue and the
+  workflow sets `Done`. After the merge, check the status and fix it only if the workflow didn't.
 - **Verify, then report.** `gh project` calls occasionally fail or lag. Retry a failed call, check the result with
   `gh project item-list 6 --owner richard-gledhill --format json` (an item can take a few seconds to appear), and
   list the issue numbers, labels and status you set.
