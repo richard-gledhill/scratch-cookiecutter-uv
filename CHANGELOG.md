@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased changes
 
+### Bug Fixes
+- make tox work with coverage and its own per-env venvs [`7ca9d0b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/7ca9d0b)
+
 ### Documentation
+- :robot: changelog file generated [`5b1490a`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/5b1490a)
 - align agent project rules with the board model and built-in workflows [`6917da2`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/6917da2)
 - :robot: changelog file generated [`d34d0ac`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/d34d0ac)
 - fix constraints.md link text and list markers in conventions.md [`4fef337`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/4fef337)
@@ -23,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #27 from richard-gledhill/fix/tox-pytest-cov [`1d8ead6`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1d8ead6)
 - Merge pull request #26 from richard-gledhill/docs/project-board-workflow [`ba5d84e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ba5d84e)
 - Merge pull request #25 from richard-gledhill/docs/plan-requirements-rfcs [`dd039d4`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/dd039d4)
 - Merge pull request #24 from richard-gledhill/docs/github-project-process [`1509691`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1509691)
