@@ -6,10 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased changes
 
+### Feature
+- ship a py.typed marker so type checkers use the package's annotations [`5ab8bce`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/5ab8bce)
+
 ### Bug Fixes
 - make tox work with coverage and its own per-env venvs [`7ca9d0b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/7ca9d0b)
 
 ### Documentation
+- :robot: changelog file generated [`3d34069`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/3d34069)
 - :robot: changelog file generated [`5b1490a`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/5b1490a)
 - align agent project rules with the board model and built-in workflows [`6917da2`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/6917da2)
 - :robot: changelog file generated [`d34d0ac`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/d34d0ac)
@@ -27,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #28 from richard-gledhill/feature/py-typed [`0e71a4a`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/0e71a4a)
 - Merge pull request #27 from richard-gledhill/fix/tox-pytest-cov [`1d8ead6`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1d8ead6)
 - Merge pull request #26 from richard-gledhill/docs/project-board-workflow [`ba5d84e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ba5d84e)
 - Merge pull request #25 from richard-gledhill/docs/plan-requirements-rfcs [`dd039d4`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/dd039d4)
