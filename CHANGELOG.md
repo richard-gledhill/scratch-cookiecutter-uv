@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Documentation
+- fix constraints.md link text and list markers in conventions.md [`4fef337`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/4fef337)
+- lowercase constraints.md, add md naming rule, describe repo purpose [`9c30bf6`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/9c30bf6)
+- rename build-plan to plan, add requirements, point RFCs at the tracker [`c57c15b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/c57c15b)
+- :robot: changelog file generated [`35fe82a`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/35fe82a)
 - describe how agents work with the linked GitHub Project [`1b55244`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1b55244)
 - :robot: changelog file generated [`2b5d053`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/2b5d053)
 - track work as labelled issues in project 6 and drop template-fork wording [`38625ab`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/38625ab)
@@ -17,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #25 from richard-gledhill/docs/plan-requirements-rfcs [`dd039d4`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/dd039d4)
 - Merge pull request #24 from richard-gledhill/docs/github-project-process [`1509691`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1509691)
 - Merge pull request #8 from richard-gledhill/docs/issue-tracking [`4035b1e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/4035b1e)
 - Merge pull request #5 from richard-gledhill/dependabot/github_actions/github-actions-dependencies-c1392ceaf0 [`296247e`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/296247e)
