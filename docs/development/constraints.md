@@ -11,7 +11,7 @@ A change is done only when both pass on a clean tree:
 
 - `make check`: `uv lock --locked`, `pre-commit run -a` (file hygiene, `ruff check`, `ruff format`), `mypy`, and
   `deptry src`.
-- `make test`: `pytest --doctest-modules`.
+- `make test`: `pytest --doctest-modules --cov --cov-report=term-missing` (coverage is reported, not enforced).
 
 ## Type checking
 
@@ -38,5 +38,6 @@ elsewhere.
 
 ## Coverage
 
-TODO: no coverage threshold is enforced yet. Set one (for example `--cov --cov-fail-under=<N>` in `make test`) and
-record it here.
+- Coverage is measured with `pytest-cov`, configured in `pyproject.toml` (`[tool.coverage.run]`: `source = ["src"]`, branch coverage). `make test` prints a missing-lines report and `tox` writes `coverage.xml`.
+- TODO: no threshold is enforced yet. Set one (for example `fail_under = <N>` under `[tool.coverage.report]`) and
+  record it here.
