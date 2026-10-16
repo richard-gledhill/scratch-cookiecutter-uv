@@ -21,9 +21,9 @@ test: ## Test the code with pytest
 	@uv run python -m pytest --doctest-modules --cov --cov-report=term-missing
 
 .PHONY: build
-build: clean-build ## Build wheel file
-	@echo "🚀 Creating wheel file"
-	@uvx --from build pyproject-build --installer uv
+build: clean-build ## Build the sdist and wheel into dist/
+	@echo "🚀 Creating sdist and wheel"
+	@uv build
 
 .PHONY: clean-build
 clean-build: ## Clean build artifacts

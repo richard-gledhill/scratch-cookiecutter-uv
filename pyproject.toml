@@ -43,6 +43,10 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/scratch_cookiecutter_uv"]
 
+[tool.hatch.build.targets.sdist]
+# Sources only; hatchling adds pyproject.toml, README.md and LICENSE itself.
+only-include = ["src/scratch_cookiecutter_uv"]
+
 [tool.mypy]
 files = ["src"]
 disallow_untyped_defs = true
