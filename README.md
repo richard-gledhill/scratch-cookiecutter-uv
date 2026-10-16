@@ -68,7 +68,7 @@ make check       # lock file consistency, pre-commit hooks, mypy, deptry
 make test        # pytest, including doctests
 make docs        # build and serve the documentation locally
 make docs-test   # check the documentation builds without warnings or errors
-make build       # build the wheel
+make build       # build the sdist and wheel into dist/
 ```
 
 Run `make` with no arguments to list every target.
