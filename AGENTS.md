@@ -18,8 +18,8 @@ actually implemented vs. still partial or deferred. See
 All development documentation lives under `docs/development/`, which is excluded from the MkDocs site.
 These paths override any default paths in skills or commands:
 
-- Constraints: `docs/development/CONSTRAINTS.md` — project-wide; read before writing code; do not weaken it to make a change pass
-- Conventions: `docs/development/conventions.md` — the style guide. Don't change `conventions.md` or `CONSTRAINTS.md`
+- Constraints: `docs/development/constraints.md` — project-wide; read before writing code; do not weaken it to make a change pass
+- Conventions: `docs/development/conventions.md` — the style guide. Don't change `conventions.md` or `constraints.md`
   without asking, and never to make them match code you just wrote. The hook blocks edits to both once they exist;
   describe the change you want in your summary and let the user make or approve it
 - Requirements (PRDs, product briefs, user stories) live in `docs/development/requirements/`. Don't edit an existing
@@ -28,7 +28,7 @@ These paths override any default paths in skills or commands:
 - Plan: `docs/development/plan/plan.md`
 - Task list: `docs/development/plan/todo.md`
 - SPEC.md is the technical spec for the current work. Link to its source in `requirements/`, and reference
-  `conventions.md`, `CONSTRAINTS.md` and `testing/` instead of restating them. Record only what's specific to this work.
+  `conventions.md`, `constraints.md` and `testing/` instead of restating them. Record only what's specific to this work.
 - ADRs: `docs/development/adr/`, format `ADR-NNN-title.md`; continue the existing sequence
 - When work ships, move `SPEC.md`, `plan.md` and `todo.md` together into
   `docs/development/plan/archive/<YYYY-MM-feature>/`, and update the requirement's Status.
@@ -39,7 +39,7 @@ These paths override any default paths in skills or commands:
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.
-- A hook enforces the development paths and protects `conventions.md`, `CONSTRAINTS.md` and existing
+- A hook enforces the development paths and protects `conventions.md`, `constraints.md` and existing
   files in `requirements/`. If a write is blocked,
   follow the redirect in the hook's message, or ask the user if the file is protected.
 
@@ -171,7 +171,7 @@ make test    # pytest --doctest-modules with coverage
 ### Rules
 
 - The quality bar, including what never to silence or weaken, is in
-  [`docs/development/CONSTRAINTS.md`](docs/development/CONSTRAINTS.md). Fix the code, not the check.
+  [`docs/development/constraints.md`](docs/development/constraints.md). Fix the code, not the check.
 - If you believe a test is wrong, explain why in your final response before changing it.
 - If a failure persists that you can't fix, or that existed before your change, or is caused by the
   environment (network, missing tools), stop. Don't report the task as complete. Say what failed and why.

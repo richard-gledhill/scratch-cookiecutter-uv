@@ -6,7 +6,7 @@ the MkDocs part of `docs/`, one level up.
 
 | Path | What goes there |
 |---|---|
-| [`CONSTRAINTS.md`](CONSTRAINTS.md) | The measured, tool-enforced quality bar. Project-wide and long-lived. Read before writing code; never weaken it to make a change pass. Protected: the guard hook blocks agent edits, so the owner changes it. |
+| [`constraints.md`](constraints.md) | The measured, tool-enforced quality bar. Project-wide and long-lived. Read before writing code; never weaken it to make a change pass. Protected: the guard hook blocks agent edits, so the owner changes it. |
 | [`conventions.md`](conventions.md) | The judgement-based style guide. Read before writing code. Protected: the guard hook blocks agent edits, so the owner changes it. |
 | [`requirements/`](requirements/README.md) | PRDs, product briefs and user stories. Human-owned and long-lived; the guard hook blocks agent edits to existing docs. |
 | [`plan/`](plan/README.md) | The current piece of work: `SPEC.md`, `plan.md` and `todo.md`, plus an `archive/` of finished work. |

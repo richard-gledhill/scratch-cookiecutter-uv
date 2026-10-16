@@ -2,7 +2,7 @@
 
 Reads the tool call as JSON on stdin. Exit 2 (with a message on stderr) blocks the write and tells the
 agent what to do instead; exit 0 allows it. Edits to MkDocs content and mkdocs.yml are allowed.
-conventions.md and CONSTRAINTS.md ship with the project and are protected: only the owner changes them. Existing
+conventions.md and constraints.md ship with the project and are protected: only the owner changes them. Existing
 files under docs/development/requirements/ are protected the same way; creating a new one is allowed.
 Shell-command edits (mv, sed) are not seen by this hook.
 """
@@ -16,7 +16,7 @@ PLAN = "docs/development/plan"
 # Default locations used by the agent workflows (and old layouts) mapped to where the file belongs.
 REDIRECTS = {
     "spec.md": f"{PLAN}/SPEC.md",
-    "constraints.md": "docs/development/CONSTRAINTS.md",
+    "constraints.md": "docs/development/constraints.md",
     "plan.md": f"{PLAN}/plan.md",
     "todo.md": f"{PLAN}/todo.md",
     "tasks/plan.md": f"{PLAN}/plan.md",

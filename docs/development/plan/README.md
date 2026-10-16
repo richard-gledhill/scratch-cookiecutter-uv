@@ -4,12 +4,12 @@ The current piece of work: what is being built, how, and what is left. One piece
 
 | File | What it is |
 |---|---|
-| `SPEC.md` | The technical spec for the current piece of work. Created by the `/spec` workflow. Links to its source in [`../requirements/`](../requirements/README.md) and references `conventions.md`, `CONSTRAINTS.md` and `testing/` instead of restating them; it records only what is specific to this work. |
+| `SPEC.md` | The technical spec for the current piece of work. Created by the `/spec` workflow. Links to its source in [`../requirements/`](../requirements/README.md) and references `conventions.md`, `constraints.md` and `testing/` instead of restating them; it records only what is specific to this work. |
 | `plan.md` | The implementation plan for `SPEC.md`. Created by agents. |
 | `todo.md` | The task list for the plan. Created by agents. Use an issue tracker instead, or gitignore it, if you don't want task state committed. |
 | [`archive/`](archive/README.md) | Finished work, one folder each. |
 
-`CONSTRAINTS.md` is not here: it is project-wide and long-lived, so it sits one level up in
+`constraints.md` is not here: it is project-wide and long-lived, so it sits one level up in
 `docs/development/`.
 
 ## Lifecycle

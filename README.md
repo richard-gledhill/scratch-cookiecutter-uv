@@ -6,8 +6,11 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)
 [![License](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)
 
-This is a scratch Python project managed with [uv](https://docs.astral.sh/uv/). It is a self-contained
-project: its issues, pull requests, documentation and tooling all live in this repository and are tracked in its own
+This is a scratch Python project managed with [uv](https://docs.astral.sh/uv/). The purpose of this repository is to
+provide a testing ground for developing a template repository structure. It also serves as a reference for new
+repositories as it extends the functionality of the base uv cookiecutter template.
+It is a self-contained project: its issues, pull requests, documentation and tooling all live in this repository and
+are tracked in its own
 GitHub project.
 
 The Python package (`scratch_cookiecutter_uv`) is only a placeholder. The value of the repository is its tooling,
@@ -40,7 +43,7 @@ ___
   from the published site.
 - `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
 - A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps spec, constraints and task files under
-  `docs/development/` and blocks agent edits to `conventions.md` and `CONSTRAINTS.md`.
+  `docs/development/` and blocks agent edits to `conventions.md` and `constraints.md`.
 
 ## Requirements
 
