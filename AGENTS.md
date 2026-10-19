@@ -35,7 +35,9 @@ These paths override any default paths in skills or commands:
   If `plan/` already has an unfinished plan for different work, stop and ask.
 - RFCs: if the project uses a GitHub Project, GitHub Issues or another tracker for RFCs, that tracker is the single
   source of truth. Don't create or copy RFCs into `docs/development/rfcs/`; refer to the issue instead. When an RFC is
-  decided, record it as an ADR and link the ADR and issue both ways. Use `rfcs/` files only if no tracker exists.
+  decided, record it as an ADR and link the ADR and issue both ways. Use `rfcs/` files only if no tracker exists;
+  [`docs/development/rfcs/README.md`](docs/development/rfcs/README.md) says which mode the project uses and gives the
+  local `RFC-NNN-title.md` format.
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.
