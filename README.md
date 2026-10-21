@@ -2,12 +2,13 @@
 
 [![Release](https://img.shields.io/github/v/release/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/v/release/richard-gledhill/scratch-cookiecutter-uv)
 [![Build status](https://img.shields.io/github/actions/workflow/status/richard-gledhill/scratch-cookiecutter-uv/main.yml?branch=main)](https://github.com/richard-gledhill/scratch-cookiecutter-uv/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/richard-gledhill/scratch-cookiecutter-uv/branch/main/graph/badge.svg)](https://codecov.io/gh/richard-gledhill/scratch-cookiecutter-uv)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)
 [![License](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)
 
 This is a scratch Python project managed with [uv](https://docs.astral.sh/uv/). The purpose of this repository is to
-provide a testing ground for developing a template repository structure. It also serves as a reference for new
+provide a testing ground for extending
+the [osprey-oss/cookiecutter-uv](https://github.com/osprey-oss/cookiecutter-uv) template. It also can be used as a
+reference for new
 repositories as it extends the functionality of the base uv cookiecutter template.
 It is a self-contained project: its issues, pull requests, documentation and tooling all live in this repository and
 are tracked in its own
@@ -39,6 +40,12 @@ ___
 - Tests with pytest, run across Python versions with tox.
 - Documentation site built with MkDocs Material and mkdocstrings.
 - GitHub Actions workflows for checks, tests, docs and releases.
+- Branch and commit names based on [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
+  (e.g. `feat/config-command`, `fix(parser): handle empty input`). A workflow checks branch names on pull requests
+  (advisory only), and `CHANGELOG.md` is generated from commit subjects on every push to `main`. The rules are in
+  [conventions.md](https://github.com/richard-gledhill/scratch-cookiecutter-uv/blob/main/docs/development/conventions.md).
+- Dependabot updates GitHub Actions (grouped into one pull request) and uv dependencies, including `uv.lock`, monthly,
+  waiting 7 days after a release before proposing it. Its `dependabot/` branches are exempt from the branch-name check.
 - Development docs under `docs/development/` (constraints, requirements, plan, ADRs, RFCs, architecture, testing and operations), excluded
   from the published site.
 - `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
