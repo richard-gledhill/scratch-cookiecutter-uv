@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - make tox work with coverage and its own per-env venvs [`7ca9d0b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/7ca9d0b)
 
 ### Documentation
+- describe Conventional Commits and Dependabot in README features [`ef645ba`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ef645ba)
+- :robot: changelog file generated [`55039e4`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/55039e4)
 - :robot: changelog file generated [`1fdb748`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/1fdb748)
 - base branch and commit naming on Conventional Commits [`c83316a`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/c83316a)
 - allow RFCs in a tracker or as local files [`96d30a3`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/96d30a3)
@@ -41,6 +43,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #34 from richard-gledhill/docs/readme-features [`be3d4f8`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/be3d4f8)
 - Merge pull request #33 from richard-gledhill/docs/conventional-commits-naming [`396332c`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/396332c)
 - Merge pull request #32 from richard-gledhill/docs/flexible-rfcs [`ed82d32`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ed82d32)
 - Merge pull request #31 from richard-gledhill/docs/update-constraints [`6d62dc3`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/6d62dc3)
