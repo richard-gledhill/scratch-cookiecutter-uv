@@ -2,7 +2,6 @@
 
 [![Release](https://img.shields.io/github/v/release/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/v/release/richard-gledhill/scratch-cookiecutter-uv)
 [![Build status](https://img.shields.io/github/actions/workflow/status/richard-gledhill/scratch-cookiecutter-uv/main.yml?branch=main)](https://github.com/richard-gledhill/scratch-cookiecutter-uv/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/richard-gledhill/scratch-cookiecutter-uv/branch/main/graph/badge.svg)](https://codecov.io/gh/richard-gledhill/scratch-cookiecutter-uv)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/commit-activity/m/richard-gledhill/scratch-cookiecutter-uv)
 [![License](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)](https://img.shields.io/github/license/richard-gledhill/scratch-cookiecutter-uv)
 
