@@ -42,7 +42,7 @@ ___
 - GitHub Actions workflows for checks, tests, docs and releases.
 - Branch and commit names based on [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
   (e.g. `feat/config-command`, `fix(parser): handle empty input`). A workflow checks branch names on pull requests
-  (advisory only), and `CHANGELOG.md` is generated from commit subjects on every push to `main`. The rules are in
+  (advisory only), and the changelog is generated from commit subjects when a release publishes the docs. Rules are in
   [conventions.md](https://github.com/richard-gledhill/scratch-cookiecutter-uv/blob/main/docs/development/conventions.md).
 - Dependabot updates GitHub Actions (grouped into one pull request) and uv dependencies, including `uv.lock`, monthly,
   waiting 7 days after a release before proposing it. Its `dependabot/` branches are exempt from the branch-name check.
