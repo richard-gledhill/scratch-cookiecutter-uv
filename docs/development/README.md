@@ -10,7 +10,7 @@ the MkDocs part of `docs/`, one level up.
 | [`conventions.md`](conventions.md) | The judgement-based style guide. Read before writing code. Protected: the guard hook blocks agent edits, so the owner changes it. |
 | [`requirements/`](requirements/README.md) | PRDs, product briefs and user stories. Human-owned and long-lived; the guard hook blocks agent edits to existing docs. |
 | [`plan/`](plan/README.md) | The current piece of work: `SPEC.md`, `plan.md` and `todo.md`, plus an `archive/` of finished work. |
-| [`rfcs/`](rfcs/README.md) | A pointer only: RFCs are GitHub issues labelled `rfc` on the project board. |
+| [`rfcs/`](rfcs/README.md) | Requests for change. In tracker mode (this project) a pointer only: RFCs are GitHub issues labelled `rfc` on the project board. In local mode, `RFC-NNN-title.md` files. |
 | [`adr/`](adr/README.md) | Architecture decision records, `ADR-NNN-title.md`, sequential, never deleted. |
 | [`architecture/`](architecture/README.md) | Overview, diagrams, data model. |
 | [`testing/`](testing/README.md) | Test strategy and plans. |
@@ -20,9 +20,10 @@ the MkDocs part of `docs/`, one level up.
 
 1. **Requirement**: a person writes `requirements/<feature>-prd.md` with `Status: Draft`, and marks it `Accepted`
    when it is ready to build.
-2. **RFC**: a design question that needs discussion is raised as an `rfc` issue.
+2. **RFC**: a design question that needs discussion is raised as an `rfc` issue, or as an `rfcs/RFC-NNN-title.md`
+   file if the project has no tracker (see [`rfcs/`](rfcs/README.md)).
 3. **ADR**: a decided RFC, or any decision that outlives the work, is recorded in `adr/` and linked both ways with
-   its issue.
+   its issue or RFC file.
 4. **Plan**: write `plan/SPEC.md` (the `/spec` workflow creates it), linking its requirement, then `plan.md` and
    `todo.md`. Build against them.
 5. **Archive**: when the work ships, move the spec, plan and todo together into `plan/archive/YYYY-MM-<feature>/` and
