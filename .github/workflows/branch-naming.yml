@@ -1,5 +1,9 @@
 name: Branch naming
 
+# Branch names use <type>/<short-description>, where <type> is a Conventional Commits
+# type (https://www.conventionalcommits.org/en/v1.0.0/), the same set used for commit
+# subjects. See docs/development/conventions.md (Git).
+
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
@@ -15,12 +19,13 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref }}
         run: |
-          PATTERN='^(feat|feature|fix|chore|docs|style|refactor|perf|test|build|ci|revert)/[a-z0-9._-]+$'
+          PATTERN='^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)/[a-z0-9._-]+$'
           if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
             echo "::error::Branch name '$BRANCH_NAME' doesn't match the required pattern."
-            echo "Expected: <type>/<short-description>, where <type> is one of:"
-            echo "  feat (or feature), fix, chore, docs, style, refactor, perf, test, build, ci, revert"
-            echo "Example: feature/config-command, chore/update-gitignore"
+            echo "Expected: <type>/<short-description> in lowercase, where <type> is a Conventional Commits type:"
+            echo "  feat, fix, chore, docs, style, refactor, perf, test, build, ci, revert"
+            echo "See https://www.conventionalcommits.org/en/v1.0.0/"
+            echo "Example: feat/config-command, chore/update-gitignore"
             exit 1
           fi
           echo "Branch name '$BRANCH_NAME' is valid."

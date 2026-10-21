@@ -81,12 +81,15 @@ enforces it. Agents can't edit either file (the guard hook blocks it): change th
   `make <target>` when imports change.>
 
 **Git**
-- Branches follow `<type>/<short-description>`, `<type>` being a Conventional Commits type
-  (`feat`/`feature`, `fix`, `chore`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`,
-  `revert`) — e.g. `feature/config-command`, `chore/refactor-configs`. Checked, advisory-only,
-  by `<.github/workflows/branch-naming.yml, if present>`. One concern per branch, from an up-to-date `main`.
-- Commit subjects use Conventional Commits (`feat:` or `feature:`, `fix:`, `refactor:`, `docs:`, `test:`,
-  `chore:`): <the changelog is generated from them>.
+- Branch and commit names are based on [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/).
+  Both use the same types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`,
+  `revert`.
+- Branches follow `<type>/<short-description>`, in lowercase — e.g. `feat/config-command`,
+  `chore/refactor-configs`. Checked, advisory-only, by `<.github/workflows/branch-naming.yml, if present>`.
+  One concern per branch, from an up-to-date `main`.
+- Commit subjects follow the spec's `<type>[optional scope]: <description>` — e.g. `feat: add config command`,
+  `fix(parser): handle empty input`. Mark a breaking change with `!` after the type or scope, or a
+  `BREAKING CHANGE:` footer. <The changelog is generated from them.>
 - Stage by explicit path, never `git add <dir>` or `-A`; untracked local files get swept in.
 - `make check` only sees tracked files: `git add -N` new files first, or they go unchecked.
 - Local scratch files go in `<.temp/>` (gitignored).
