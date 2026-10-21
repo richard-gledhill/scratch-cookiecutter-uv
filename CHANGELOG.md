@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - make tox work with coverage and its own per-env venvs [`7ca9d0b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/7ca9d0b)
 
 ### Documentation
+- allow RFCs in a tracker or as local files [`96d30a3`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/96d30a3)
+- :robot: changelog file generated [`2cb14ed`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/2cb14ed)
 - :robot: changelog file generated [`a996284`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/a996284)
 - :robot: changelog file generated [`3d34069`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/3d34069)
 - add coverage reporting details to constraints.md [`75110f3`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/75110f3)
@@ -37,6 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #32 from richard-gledhill/docs/flexible-rfcs [`ed82d32`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ed82d32)
 - Merge pull request #31 from richard-gledhill/docs/update-constraints [`6d62dc3`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/6d62dc3)
 - Merge pull request #30 from richard-gledhill/build/uv-build [`70889c2`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/70889c2)
 - Merge pull request #29 from richard-gledhill/chore/pin-python-version [`c12f327`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/c12f327)
