@@ -1,14 +1,29 @@
 name: Main
 
+# Docs-only changes run docs.yml instead. Keep paths-ignore here identical to its paths:,
+# so every change runs at least one of the two.
 on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+
+# A new push to a PR cancels its run still in progress; runs on main always finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   quality:
+    # Draft PRs are skipped; marking one ready for review runs it.
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -26,6 +41,7 @@ jobs:
         run: make check
 
   tests-and-type-check:
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -52,6 +68,7 @@ jobs:
 
 
   check-docs:
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
       - name: Check out
