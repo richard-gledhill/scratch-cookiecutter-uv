@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - skip full CI for docs-only changes and cancel superseded runs [`ae58fdd`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ae58fdd)
 
 ### Documentation
+- :robot: changelog file generated [`cf7859b`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/cf7859b)
 - :robot: changelog file generated [`0ea0a4f`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/0ea0a4f)
 - describe Conventional Commits and Dependabot in README features [`ef645ba`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/ef645ba)
 - :robot: changelog file generated [`55039e4`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/55039e4)
@@ -43,10 +44,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - use uv build in make build and limit the sdist to the sources [`e38524f`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/e38524f)
 
 ### Chore
+- ignore local Claude Code settings, worktrees and skills [`cbf8aee`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/cbf8aee)
 - pin the development interpreter to Python 3.11 [`f13c4c2`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/f13c4c2)
 - Bump the github-actions-dependencies group across 2 directories with 6 updates [`73d442d`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/73d442d)
 
 ### Other
+- Merge pull request #36 from richard-gledhill/chore/gitignore-claude-local [`715b8d1`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/715b8d1)
 - Merge pull request #35 from richard-gledhill/ci/skip-docs-only-runs [`8188f98`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/8188f98)
 - Merge pull request #34 from richard-gledhill/docs/readme-features [`be3d4f8`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/be3d4f8)
 - Merge pull request #33 from richard-gledhill/docs/conventional-commits-naming [`396332c`](https://github.com/richard-gledhill/scratch-cookiecutter-uv/commit/396332c)
