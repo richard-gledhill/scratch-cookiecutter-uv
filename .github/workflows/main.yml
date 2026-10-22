@@ -59,6 +59,8 @@ jobs:
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
+        with:
+          no-group: docs
 
       - name: Run checks
         run: make check
@@ -91,6 +93,7 @@ jobs:
         uses: ./.github/actions/setup-python-env
         with:
           python-version: ${{ matrix.python-version }}
+          no-group: docs
 
       - name: Run tests
         if: env.RUN_TESTS == 'true'
@@ -109,6 +112,8 @@ jobs:
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
+        with:
+          no-group: dev
 
       - name: Check if documentation can be built
         run: uv run mkdocs build -s
