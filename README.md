@@ -17,6 +17,11 @@ GitHub project.
 The Python package (`scratch_cookiecutter_uv`) is only a placeholder. The value of the repository is its tooling,
 its documentation layout, and the `AGENTS.md` and `CONTEXT.md` templates for AI coding agents.
 
+> **Template mode.** This repository stays a template: `docs/development/` holds only generic scaffolding, with no
+> project-specific requirements, plans, ADRs or RFCs. Changes and decisions are recorded only in the GitHub issues and
+> [project](https://github.com/users/richard-gledhill/projects/6). If you use this repository as a template for a real
+> project, delete this note and the "Template mode" section of `AGENTS.md`.
+
 - **Github repository**: <https://github.com/richard-gledhill/scratch-cookiecutter-uv/>
 - **Documentation**: <https://richard-gledhill.github.io/scratch-cookiecutter-uv/>
 
