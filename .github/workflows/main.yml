@@ -1,19 +1,14 @@
 name: Main
 
-# Docs-only changes run docs.yml instead. Keep paths-ignore here identical to its paths:,
-# so every change runs at least one of the two.
+# Runs on every change, so the ruleset's required checks always report. Docs-only changes
+# (Markdown or docs/) skip the costly steps instead of the jobs: a step skipped by `if:`
+# leaves its job green, whereas a workflow skipped by a path filter never reports at all.
 on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
 
 # A new push to a PR cancels its run still in progress; runs on main always finish.
 concurrency:
@@ -21,8 +16,36 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  quality:
+  changes:
     # Draft PRs are skipped; marking one ready for review runs it.
+    if: github.event.pull_request.draft != true
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Detect non-docs changes
+        id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        # code=true unless every changed file is Markdown or under docs/. If the diff
+        # can't be computed (e.g. a new branch's zero SHA), assume code changed.
+        run: |
+          if files=$(git diff --name-only "$BASE...$HEAD" 2>/dev/null) && [ -n "$files" ] \
+            && ! printf '%s\n' "$files" | grep -qvE '(\.md$|^docs/)'; then
+            code=false
+          else
+            code=true
+          fi
+          printf '%s\n' "$files"
+          echo "code=$code" | tee -a "$GITHUB_OUTPUT"
+
+  quality:
     if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +64,11 @@ jobs:
         run: make check
 
   tests-and-type-check:
-    if: github.event.pull_request.draft != true
+    # Skip steps, not the job: a skipped matrix job reports one unexpanded check name,
+    # so the required "tests-and-type-check (3.x)" checks would never arrive. !cancelled()
+    # keeps it running if `changes` fails; an empty output then counts as a code change.
+    needs: changes
+    if: ${{ !cancelled() && github.event.pull_request.draft != true }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -50,22 +77,28 @@ jobs:
     defaults:
       run:
         shell: bash
+    # Docs-only changes still run the tests (they read AGENTS.md, README.md and
+    # docs/development/), but on one Python and without mypy.
+    env:
+      RUN_TESTS: ${{ needs.changes.outputs.code != 'false' || matrix.python-version == '3.12' }}
     steps:
       - name: Check out
+        if: env.RUN_TESTS == 'true'
         uses: actions/checkout@v7
 
       - name: Set up the environment
+        if: env.RUN_TESTS == 'true'
         uses: ./.github/actions/setup-python-env
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Run tests
+        if: env.RUN_TESTS == 'true'
         run: uv run python -m pytest tests
 
       - name: Check typing
+        if: needs.changes.outputs.code != 'false'
         run: uv run mypy
-
-
 
   check-docs:
     if: github.event.pull_request.draft != true

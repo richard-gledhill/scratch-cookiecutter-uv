@@ -95,8 +95,8 @@ uv run python -m pytest tests/test_foo.py -k some_case
 
 `tox.ini` runs the same tests across the supported Python versions (3.10 to 3.14), and the GitHub Actions workflow in
 `.github/workflows/main.yml` does the same on every pull request and push to `main`. Changes that touch only Markdown
-run the lighter `.github/workflows/docs.yml` instead (pre-commit, tests on one Python, docs build), and draft pull
-requests run neither until they're marked ready for review.
+or `docs/` run a lighter pass in the same jobs (tests on one Python, no mypy), so the required checks still report.
+Draft pull requests run nothing until they're marked ready for review.
 
 ## Project Structure
 
