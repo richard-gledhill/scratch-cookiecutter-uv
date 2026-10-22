@@ -66,8 +66,9 @@ ___
   `uv run` use it (uv downloads it if it isn't installed). `tox` and CI still test 3.11 to 3.14.
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [Git](https://git-scm.com/)
-- `make` to run the shortcuts below. Windows doesn't ship it, so run the commands each target wraps (see the
-  `Makefile`) or install it separately.
+- `make` to run the shortcuts below. Windows doesn't ship it; install it with `winget install ezwinports.make`
+  (or `choco install make`, `scoop install make`), then open a new terminal. Without it, run the commands each target
+  wraps (see the `Makefile`).
 
 ## Development
 
