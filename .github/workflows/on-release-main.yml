@@ -21,15 +21,26 @@ jobs:
         with:
           fetch-depth: 0 # The changelog is built from the full commit history
 
+      - name: Set up the environment
+        uses: ./.github/actions/setup-python-env
+
+      # pyproject.toml is the only place the version is written, so the tag must match it.
+      - name: Check the release tag matches the project version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(uv version --short)
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Release tag $TAG doesn't match the pyproject.toml version $version (expected v$version)"
+            exit 1
+          fi
+
       # Regenerated here rather than committed on every push, which the main ruleset blocks.
       # docs/changelog.md includes it, so only the published site has the latest entries.
       - name: Generate Changelog
         uses: smichard/conventional_changelog@2.0.11
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up the environment
-        uses: ./.github/actions/setup-python-env
 
       - name: Build documentation
         run: uv run mkdocs build --clean
