@@ -10,6 +10,10 @@ inputs:
     description: "uv version to use"
     required: true
     default: "0.10.12"
+  no-group:
+    description: "Dependency group to leave out, e.g. docs (default: install all default groups)"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -29,6 +33,12 @@ runs:
         version: ${{ inputs.uv-version }}
         enable-cache: 'true'
         cache-suffix: ${{ matrix.python-version }}
+
+    # Set as an env var, not a sync flag, so later `uv run` calls don't add the group back.
+    - name: Leave out a dependency group
+      if: inputs.no-group != ''
+      run: echo "UV_NO_GROUP=${{ inputs.no-group }}" >> "$GITHUB_ENV"
+      shell: bash
 
     - name: Install Python dependencies
       run: uv sync --frozen

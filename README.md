@@ -45,7 +45,8 @@ ___
 - Formatting and linting with ruff, static type checking with mypy, and unused-dependency checks with deptry, all run
   through pre-commit.
 - Tests with pytest, run across Python versions with tox.
-- Documentation site built with MkDocs Material and mkdocstrings.
+- Documentation site built with MkDocs Material and mkdocstrings. The docs tools are in their own `docs` dependency
+  group: `uv sync` installs it with `dev` by default, and CI jobs install only the group they need.
 - GitHub Actions workflows for checks, tests, docs and releases.
 - Branch and commit names based on [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
   (e.g. `feat/config-command`, `fix(parser): handle empty input`). A workflow checks branch names on pull requests
