@@ -2,6 +2,19 @@
 
 This file provides guidance to AI Agents and Claude Code (claude.ai/code) when working with code in this repository.
 
+## Template mode
+
+This repository is a template, so `docs/development/` holds only generic scaffolding: the folder READMEs,
+`conventions.md` and `constraints.md`. While in template mode, this section overrides the rest of this file:
+
+- Don't write project-specific development docs: no requirements, `SPEC.md`, `plan.md`, `todo.md`, ADRs, RFCs,
+  architecture or roadmap files. Edit the scaffolding only to improve the template itself.
+- The GitHub issues and project are the only record of changes and decisions. Close a decided `rfc` with a comment
+  stating the decision instead of writing an ADR.
+
+**When this repository is used as a template for a real project, delete this section** (and the matching note in
+`README.md`), so the development-docs rules below apply.
+
 ## What this is
 
 <One paragraph: what the project does, who it is for, and its key guarantees or constraints.>
@@ -15,7 +28,8 @@ actually implemented vs. still partial or deferred. See
 
 ## Development docs location
 
-All development documentation lives under `docs/development/`, which is excluded from the MkDocs site.
+In [template mode](#template-mode), only the rules for `constraints.md`, `conventions.md`, MkDocs pages and the hook
+apply. All development documentation lives under `docs/development/`, which is excluded from the MkDocs site.
 These paths override any default paths in skills or commands:
 
 - Constraints: `docs/development/constraints.md` — project-wide; read before writing code; do not weaken it to make a change pass
@@ -54,6 +68,7 @@ pull requests in any other repository, including any cookiecutter-uv fork or tem
   discussed before it is built).
 - Create, edit, close or move issues and project items only when the user asks.
 - A decided `rfc` is recorded as an ADR in `docs/development/adr/`; link the issue and the ADR to each other.
+  In [template mode](#template-mode), record the decision in a comment on the issue instead.
 - Reference the issue in commits and PRs (`Closes #N`).
 
 ### When a GitHub Project is linked to the repository
