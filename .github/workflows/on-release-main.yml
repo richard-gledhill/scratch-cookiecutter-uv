@@ -16,10 +16,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Keep the default shallow clone: the changelog action runs `git fetch --unshallow`
+      # itself, which fails on a full clone (fetch-depth: 0).
       - name: Check out
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0 # The changelog is built from the full commit history
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
