@@ -31,6 +31,7 @@ ___
 - [Requirements](#requirements)
 - [Development](#development)
 - [Testing](#testing)
+- [Releasing](#releasing)
 - [Project Structure](#project-structure)
 - [Using this template](#using-this-template)
 - [Contributing](#contributing)
@@ -103,6 +104,17 @@ uv run python -m pytest tests/test_foo.py -k some_case
 `.github/workflows/main.yml` does the same on every pull request and push to `main`. Changes that touch only Markdown
 or `docs/` run a lighter pass in the same jobs (tests on one Python, no mypy), so the required checks still report.
 Draft pull requests run nothing until they're marked ready for review.
+
+## Releasing
+
+The version is written only in `pyproject.toml`.
+
+1. On a branch, bump it with `uv version --bump patch` (or `minor`, `major`), commit `pyproject.toml` and `uv.lock`,
+   and merge it through a pull request.
+2. Publish a GitHub release from `main` with a new tag `v<version>`, e.g. `v0.0.2`.
+
+Publishing the release runs `.github/workflows/on-release-main.yml`. It fails if the tag isn't `v` followed by the
+`pyproject.toml` version, then generates the changelog and deploys the docs to GitHub Pages.
 
 ## Project Structure
 
