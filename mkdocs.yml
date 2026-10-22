@@ -51,8 +51,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/richard-gledhill/scratch-cookiecutter-uv
-    - icon: fontawesome/brands/python
-      link: https://pypi.org/project/scratch-cookiecutter-uv
 
 markdown_extensions:
   - toc:

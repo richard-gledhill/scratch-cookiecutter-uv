@@ -17,6 +17,11 @@ GitHub project.
 The Python package (`scratch_cookiecutter_uv`) is only a placeholder. The value of the repository is its tooling,
 its documentation layout, and the `AGENTS.md` and `CONTEXT.md` templates for AI coding agents.
 
+> **Template mode.** This repository stays a template: `docs/development/` holds only generic scaffolding, with no
+> project-specific requirements, plans, ADRs or RFCs. Changes and decisions are recorded only in the GitHub issues and
+> [project](https://github.com/users/richard-gledhill/projects/6). If you use this repository as a template for a real
+> project, delete this note and the "Template mode" section of `AGENTS.md`.
+
 - **Github repository**: <https://github.com/richard-gledhill/scratch-cookiecutter-uv/>
 - **Documentation**: <https://richard-gledhill.github.io/scratch-cookiecutter-uv/>
 
@@ -26,7 +31,9 @@ ___
 - [Requirements](#requirements)
 - [Development](#development)
 - [Testing](#testing)
+- [Releasing](#releasing)
 - [Project Structure](#project-structure)
+- [Using this template](#using-this-template)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -99,6 +106,17 @@ uv run python -m pytest tests/test_foo.py -k some_case
 or `docs/` run a lighter pass in the same jobs (tests on one Python, no mypy), so the required checks still report.
 Draft pull requests run nothing until they're marked ready for review.
 
+## Releasing
+
+The version is written only in `pyproject.toml`.
+
+1. On a branch, bump it with `uv version --bump patch` (or `minor`, `major`), commit `pyproject.toml` and `uv.lock`,
+   and merge it through a pull request.
+2. Publish a GitHub release from `main` with a new tag `v<version>`, e.g. `v0.0.2`.
+
+Publishing the release runs `.github/workflows/on-release-main.yml`. It fails if the tag isn't `v` followed by the
+`pyproject.toml` version, then generates the changelog and deploys the docs to GitHub Pages.
+
 ## Project Structure
 
 ```
@@ -121,6 +139,27 @@ Draft pull requests run nothing until they're marked ready for review.
 ├── pyproject.toml
 └── tox.ini
 ```
+
+## Using this template
+
+A repository created from this template gets the workflows but not the GitHub settings they rely on. Set these up
+once, in the new repository's settings:
+
+1. **Ruleset** (Settings → Rules → Rulesets → New branch ruleset), targeting the default branch:
+   - Restrict deletions, block force pushes, and require a pull request before merging.
+   - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`, with "Require
+     branches to be up to date before merging". Leave `check-branch-name` out; it is advisory.
+   - Leave the bypass list empty, or set any bypass to "For pull requests only".
+2. **GitHub Pages** (Settings → Pages): set Source to **GitHub Actions**, or the docs deploy on release fails.
+3. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge" and "Always suggest updating pull
+   request branches", which make the up-to-date rule easier to live with.
+
+Then clean up the template itself:
+
+- Remove the `Private :: Do Not Upload` classifier from `pyproject.toml` if the package will be published to PyPI.
+- Delete the "Template mode" notes in this README and `AGENTS.md`.
+- Replace the `<placeholder>` text in `AGENTS.md`, `CONTEXT.md` and `docs/development/conventions.md`, and the
+  placeholder package in `src/`.
 
 ## Contributing
 
