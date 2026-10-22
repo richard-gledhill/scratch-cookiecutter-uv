@@ -2,8 +2,8 @@
 
 Reads the tool call as JSON on stdin. Exit 2 (with a message on stderr) blocks the write and tells the
 agent what to do instead; exit 0 allows it. Edits to MkDocs content and mkdocs.yml are allowed.
-conventions.md and constraints.md ship with the project and are protected: only the owner changes them. Existing
-files under docs/development/requirements/ are protected the same way; creating a new one is allowed.
+conventions.md and constraints.md ship with the project and are protected: only the owner changes them. Add a
+directory to PROTECTED_DIRS to protect its existing files the same way; creating a new one is still allowed.
 Shell-command edits (mv, sed) are not seen by this hook.
 """
 
@@ -28,7 +28,7 @@ PREFIX_REDIRECTS = {
     "docs/development/tasks/": f"{PLAN}/",
 }
 PROTECTED = ("docs/development/conventions.md", "docs/development/constraints.md")
-PROTECTED_DIRS = ("docs/development/requirements/",)
+PROTECTED_DIRS: tuple[str, ...] = ()  # e.g. ("docs/development/requirements/",)
 
 data = json.load(sys.stdin)
 path = data.get("tool_input", {}).get("file_path")

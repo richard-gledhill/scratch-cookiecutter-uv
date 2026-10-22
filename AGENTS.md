@@ -55,8 +55,8 @@ These paths override any default paths in skills or commands:
 - Never write development docs into the MkDocs content under `docs/` outside `development/`
 - You may edit and add MkDocs pages (user-facing docs under `docs/`, outside `development/`) and `mkdocs.yml`
   when a change needs it. Add new pages to `nav:` and run `make docs-test` to check the site still builds.
-- A hook enforces the development paths and protects `conventions.md`, `constraints.md` and existing
-  files in `requirements/`. If a write is blocked,
+- A hook enforces the development paths and protects `conventions.md` and `constraints.md` (and existing files in
+  any directory listed in its `PROTECTED_DIRS`, empty by default). If a write is blocked,
   follow the redirect in the hook's message, or ask the user if the file is protected.
 
 ## Tracking work
