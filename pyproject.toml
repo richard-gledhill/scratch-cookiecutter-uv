@@ -1,6 +1,6 @@
 [project]
 name = "scratch-cookiecutter-uv"
-version = "0.0.1"
+version = "0.1.0"
 description = "This is a scratch repository template using cookiecutter-uv used to test personal customisation."
 authors = [{ name = "Richard Gledhill", email = "rich_gledhill@hotmail.com" }]
 readme = "README.md"
