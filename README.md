@@ -32,6 +32,7 @@ ___
 - [Development](#development)
 - [Testing](#testing)
 - [Project Structure](#project-structure)
+- [Using this template](#using-this-template)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -125,6 +126,27 @@ Draft pull requests run nothing until they're marked ready for review.
 ├── pyproject.toml
 └── tox.ini
 ```
+
+## Using this template
+
+A repository created from this template gets the workflows but not the GitHub settings they rely on. Set these up
+once, in the new repository's settings:
+
+1. **Ruleset** (Settings → Rules → Rulesets → New branch ruleset), targeting the default branch:
+   - Restrict deletions, block force pushes, and require a pull request before merging.
+   - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`, with "Require
+     branches to be up to date before merging". Leave `check-branch-name` out; it is advisory.
+   - Leave the bypass list empty, or set any bypass to "For pull requests only".
+2. **GitHub Pages** (Settings → Pages): set Source to **GitHub Actions**, or the docs deploy on release fails.
+3. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge" and "Always suggest updating pull
+   request branches", which make the up-to-date rule easier to live with.
+
+Then clean up the template itself:
+
+- Remove the `Private :: Do Not Upload` classifier from `pyproject.toml` if the package will be published to PyPI.
+- Delete the "Template mode" notes in this README and `AGENTS.md`.
+- Replace the `<placeholder>` text in `AGENTS.md`, `CONTEXT.md` and `docs/development/conventions.md`, and the
+  placeholder package in `src/`.
 
 ## Contributing
 
