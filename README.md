@@ -28,6 +28,7 @@ its documentation layout, and the `AGENTS.md` and `CONTEXT.md` templates for AI 
 ___
 
 - [Features](#features)
+- [Changes from cookiecutter-uv](#changes-from-cookiecutter-uv)
 - [Requirements](#requirements)
 - [Development](#development)
 - [Testing](#testing)
@@ -59,6 +60,42 @@ ___
 - `AGENTS.md` and `CONTEXT.md` templates for AI coding agents, with `CLAUDE.md` importing `AGENTS.md`.
 - A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps spec, constraints and task files under
   `docs/development/` and blocks agent edits to `conventions.md` and `constraints.md`.
+
+## Changes from cookiecutter-uv
+
+Compared with a project generated from [osprey-oss/cookiecutter-uv](https://github.com/osprey-oss/cookiecutter-uv)
+(upstream commit `d7123d2`) using the `src` layout, MkDocs, mypy, deptry and GitHub Actions, with no PyPI publishing,
+Codecov, Dockerfile or devcontainer:
+
+**Python and packaging**
+- Python 3.11 to 3.14 (upstream: 3.10 to 3.14), with `.python-version` pinning development to 3.11.
+- `py.typed` marker; the sdist contains only the package sources; `make build` uses `uv build`.
+- The `Private :: Do Not Upload` classifier, and no PyPI link in the docs, as the package isn't published.
+- MkDocs, mkdocs-material and mkdocstrings move to their own `docs` dependency group, installed with `dev` by default.
+
+**Testing**
+- `make test` runs doctests with branch coverage reported in the terminal (coverage config in `pyproject.toml`).
+- `tox` syncs each environment from `uv.lock` with tox-uv's lock runner instead of running `uv sync` itself.
+- Tests for the development docs layout and the Claude Code hook.
+
+**CI and releases**
+- `main.yml` runs on every change so required checks always report. Docs-only changes skip costly steps (tests on one
+  Python, no mypy), a new push cancels a PR's run in progress, and draft PRs wait until ready for review.
+- The setup action points uv at the matrix Python (`UV_PYTHON`) and can leave out a dependency group.
+- An advisory branch-name check, and Dependabot for GitHub Actions and uv, monthly with a 7-day cooldown.
+- Releases fail if the tag isn't `v` + the `pyproject.toml` version, and generate the changelog from Conventional
+  Commits for the docs site. Steps are under [Releasing](#releasing).
+- Newer major versions of the GitHub Actions used.
+
+**Docs**
+- Extra site pages: How to use, Changelog, Contributing and License (the last three include the root files).
+- `docs/development/` scaffolding for development docs, excluded from the published site.
+- README sections on releasing and on [using this template](#using-this-template), and how to install `make` on Windows.
+
+**AI coding agents**
+- `AGENTS.md`, `CONTEXT.md` and `CLAUDE.md` templates, with conventions and constraints under `docs/development/`.
+- A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps development docs in place and protects the
+  conventions and constraints, plus Claude Code entries in `.gitignore`.
 
 ## Requirements
 
@@ -102,7 +139,7 @@ Run a single test or a narrower selection:
 uv run python -m pytest tests/test_foo.py -k some_case
 ```
 
-`tox.ini` runs the same tests across the supported Python versions (3.10 to 3.14), and the GitHub Actions workflow in
+`tox.ini` runs the same tests across the supported Python versions (3.11 to 3.14), and the GitHub Actions workflow in
 `.github/workflows/main.yml` does the same on every pull request and push to `main`. Changes that touch only Markdown
 or `docs/` run a lighter pass in the same jobs (tests on one Python, no mypy), so the required checks still report.
 Draft pull requests run nothing until they're marked ready for review.
