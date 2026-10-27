@@ -95,7 +95,8 @@ Codecov, Dockerfile or devcontainer:
 **AI coding agents**
 - `AGENTS.md`, `CONTEXT.md` and `CLAUDE.md` templates, with conventions and constraints under `docs/development/`.
 - A Claude Code hook (`.claude/hooks/guard_docs.py`) that keeps development docs in place and protects the
-  conventions and constraints, plus Claude Code entries in `.gitignore`.
+  conventions and constraints, plus Claude Code entries in `.gitignore`. Existing files in other directories can be
+  protected too by listing them in its `PROTECTED_DIRS` (empty by default).
 
 ## Requirements
 
@@ -185,12 +186,15 @@ once, in the new repository's settings:
 
 1. **Ruleset** (Settings → Rules → Rulesets → New branch ruleset), targeting the default branch:
    - Restrict deletions, block force pushes, and require a pull request before merging.
-   - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`, with "Require
-     branches to be up to date before merging". Leave `check-branch-name` out; it is advisory.
+   - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`. Leave
+     `check-branch-name` out; it is advisory.
+   - Leave "Require branches to be up to date before merging" off. With it on, each merged Dependabot pull request
+     puts the others out of date, and each needs a rebase and a full CI run before it can merge. CI runs again on
+     every push to `main`, so a clash between two merged changes still shows up straight away.
    - Leave the bypass list empty, or set any bypass to "For pull requests only".
 2. **GitHub Pages** (Settings → Pages): set Source to **GitHub Actions**, or the docs deploy on release fails.
-3. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge" and "Always suggest updating pull
-   request branches", which make the up-to-date rule easier to live with.
+3. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge", so a pull request merges by itself
+   once its required checks pass.
 
 Then clean up the template itself:
 
