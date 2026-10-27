@@ -187,7 +187,8 @@ once, in the new repository's settings:
 1. **Ruleset** (Settings → Rules → Rulesets → New branch ruleset), targeting the default branch:
    - Restrict deletions, block force pushes, and require a pull request before merging.
    - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`. Leave
-     `check-branch-name` out; it is advisory.
+     `check-branch-name` out; it is advisory. These names must match the jobs in `main.yml`: when you rename a job
+     or change the Python matrix, update the ruleset too, or pull requests wait for a check that never reports.
    - Leave "Require branches to be up to date before merging" off. With it on, each merged Dependabot pull request
      puts the others out of date, and each needs a rebase and a full CI run before it can merge. CI runs again on
      every push to `main`, so a clash between two merged changes still shows up straight away.

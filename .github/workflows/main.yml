@@ -74,6 +74,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Each version is a required check in the main ruleset, as are the `quality` and
+        # `check-docs` job names. Change the ruleset with them, or PRs wait for a check
+        # that never reports.
         python-version: ["3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
     defaults:
