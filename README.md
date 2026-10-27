@@ -79,8 +79,8 @@ Codecov, Dockerfile or devcontainer:
 - Tests for the development docs layout and the Claude Code hook.
 
 **CI and releases**
-- `main.yml` runs on every change so required checks always report. Docs-only changes skip costly steps (tests on one
-  Python, no mypy), a new push cancels a PR's run in progress, and draft PRs wait until ready for review.
+- `main.yml` runs on every change and ends in a `ci-ok` job, the one check to require. Docs-only PRs skip the test
+  matrix and run the tests once, a new push cancels a PR's run in progress, and draft PRs wait until ready for review.
 - The setup action points uv at the matrix Python (`UV_PYTHON`) and can leave out a dependency group.
 - An advisory branch-name check, and Dependabot for GitHub Actions and uv, monthly with a 7-day cooldown.
 - Releases fail if the tag isn't `v` + the `pyproject.toml` version, and generate the changelog from Conventional
@@ -141,8 +141,9 @@ uv run python -m pytest tests/test_foo.py -k some_case
 ```
 
 `tox.ini` runs the same tests across the supported Python versions (3.11 to 3.14), and the GitHub Actions workflow in
-`.github/workflows/main.yml` does the same on every pull request and push to `main`. Changes that touch only Markdown
-or `docs/` run a lighter pass in the same jobs (tests on one Python, no mypy), so the required checks still report.
+`.github/workflows/main.yml` does the same on every pull request and push to `main`. Pull requests that touch only
+root Markdown files or `docs/` skip the matrix and mypy and run the tests once, and a final `ci-ok` job reports the
+overall result.
 Draft pull requests run nothing until they're marked ready for review.
 
 ## Releasing
@@ -186,15 +187,18 @@ once, in the new repository's settings:
 
 1. **Ruleset** (Settings → Rules → Rulesets → New branch ruleset), targeting the default branch:
    - Restrict deletions, block force pushes, and require a pull request before merging.
-   - Require status checks `quality`, `check-docs` and `tests-and-type-check (3.11)` to `(3.14)`. Leave
-     `check-branch-name` out; it is advisory. These names must match the jobs in `main.yml`: when you rename a job
-     or change the Python matrix, update the ruleset too, or pull requests wait for a check that never reports.
+   - Require the status check `ci-ok` only. It passes when every other job in `main.yml` passed or was skipped, so
+     renaming a job or changing the Python matrix needs no ruleset change. Leave `check-branch-name` out; it is
+     advisory.
    - Leave "Require branches to be up to date before merging" off. With it on, each merged Dependabot pull request
      puts the others out of date, and each needs a rebase and a full CI run before it can merge. CI runs again on
      every push to `main`, so a clash between two merged changes still shows up straight away.
    - Leave the bypass list empty, or set any bypass to "For pull requests only".
 2. **GitHub Pages** (Settings → Pages): set Source to **GitHub Actions**, or the docs deploy on release fails.
-3. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge", so a pull request merges by itself
+3. **Actions** (Settings → Actions → General): keep "Require approval for first-time contributors" on, and review any
+   `.github/` change by hand. A pull request runs its own copy of the workflow, so it can change what `changes` and
+   `ci-ok` check.
+4. **Optional** (Settings → General → Pull Requests): turn on "Allow auto-merge", so a pull request merges by itself
    once its required checks pass.
 
 Then clean up the template itself:

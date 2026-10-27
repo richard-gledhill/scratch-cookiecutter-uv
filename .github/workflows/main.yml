@@ -1,8 +1,8 @@
 name: Main
 
-# Runs on every change, so the ruleset's required checks always report. Docs-only changes
-# (Markdown or docs/) skip the costly steps instead of the jobs: a step skipped by `if:`
-# leaves its job green, whereas a workflow skipped by a path filter never reports at all.
+# Runs on every change, so `ci-ok`, the ruleset's only required check, always reports (a
+# workflow skipped by a path filter reports nothing). Docs-only PRs (root Markdown or
+# docs/) skip the test matrix and run the tests once instead, as some tests read the docs.
 on:
   push:
     branches:
@@ -31,13 +31,13 @@ jobs:
       - name: Detect non-docs changes
         id: diff
         env:
-          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
-        # code=true unless every changed file is Markdown or under docs/. If the diff
-        # can't be computed (e.g. a new branch's zero SHA), assume code changed.
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        # code=false only for a PR whose changed files are all docs. A push to main, an
+        # empty diff or a failed diff counts as a code change.
         run: |
-          if files=$(git diff --name-only "$BASE...$HEAD" 2>/dev/null) && [ -n "$files" ] \
-            && ! printf '%s\n' "$files" | grep -qvE '(\.md$|^docs/)'; then
+          if [ -n "$BASE" ] && files=$(git diff --name-only "$BASE...$HEAD" 2>/dev/null) && [ -n "$files" ] \
+            && ! printf '%s\n' "$files" | grep -qvE '^(docs/|[^/]+\.md$)'; then
             code=false
           else
             code=true
@@ -65,45 +65,48 @@ jobs:
       - name: Run checks
         run: make check
 
-  tests-and-type-check:
-    # Skip steps, not the job: a skipped matrix job reports one unexpanded check name,
-    # so the required "tests-and-type-check (3.x)" checks would never arrive. !cancelled()
-    # keeps it running if `changes` fails; an empty output then counts as a code change.
+  quick-tests:
+    # Docs-only PRs still run the tests once: they read AGENTS.md, README.md and docs/development/.
     needs: changes
-    if: ${{ !cancelled() && github.event.pull_request.draft != true }}
+    if: needs.changes.outputs.code == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up the environment
+        uses: ./.github/actions/setup-python-env
+        with:
+          no-group: docs
+
+      - name: Run tests
+        run: uv run python -m pytest tests
+
+  tests-and-type-check:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Each version is a required check in the main ruleset, as are the `quality` and
-        # `check-docs` job names. Change the ruleset with them, or PRs wait for a check
-        # that never reports.
         python-version: ["3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
     defaults:
       run:
         shell: bash
-    # Docs-only changes still run the tests (they read AGENTS.md, README.md and
-    # docs/development/), but on one Python and without mypy.
-    env:
-      RUN_TESTS: ${{ needs.changes.outputs.code != 'false' || matrix.python-version == '3.12' }}
     steps:
       - name: Check out
-        if: env.RUN_TESTS == 'true'
         uses: actions/checkout@v7
 
       - name: Set up the environment
-        if: env.RUN_TESTS == 'true'
         uses: ./.github/actions/setup-python-env
         with:
           python-version: ${{ matrix.python-version }}
           no-group: docs
 
       - name: Run tests
-        if: env.RUN_TESTS == 'true'
         run: uv run python -m pytest tests
 
       - name: Check typing
-        if: needs.changes.outputs.code != 'false'
         run: uv run mypy
 
   check-docs:
@@ -120,3 +123,22 @@ jobs:
 
       - name: Check if documentation can be built
         run: uv run mkdocs build -s
+
+  ci-ok:
+    # The ruleset's only required check, so renaming a job or changing the matrix never
+    # blocks merging. It runs even when a job it needs fails, and passes only if `changes`
+    # succeeded and every other job passed or was skipped.
+    if: always() && github.event.pull_request.draft != true
+    needs: [changes, quality, quick-tests, tests-and-type-check, check-docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check every job passed or was skipped
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Results: $RESULTS"
+          if [ "$CHANGES" != success ]; then echo "::error::changes ended $CHANGES"; exit 1; fi
+          for r in $RESULTS; do
+            case "$r" in success|skipped) ;; *) echo "::error::a job ended $r"; exit 1 ;; esac
+          done
