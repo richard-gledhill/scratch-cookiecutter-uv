@@ -68,7 +68,7 @@ Compared with a project generated from [osprey-oss/cookiecutter-uv](https://gith
 Codecov, Dockerfile or devcontainer:
 
 **Python and packaging**
-- Python 3.11 to 3.14 (upstream: 3.10 to 3.14), with `.python-version` pinning development to 3.11.
+- Python 3.12 to 3.14 (upstream: 3.10 to 3.14), with `.python-version` pinning development to 3.12.
 - `py.typed` marker; the sdist contains only the package sources; `make build` uses `uv build`.
 - The `Private :: Do Not Upload` classifier, and no PyPI link in the docs, as the package isn't published.
 - MkDocs, mkdocs-material and mkdocstrings move to their own `docs` dependency group, installed with `dev` by default.
@@ -100,8 +100,8 @@ Codecov, Dockerfile or devcontainer:
 
 ## Requirements
 
-- Python 3.11 or later. `.python-version` pins development to 3.11, the minimum supported version, so `uv sync` and
-  `uv run` use it (uv downloads it if it isn't installed). `tox` and CI still test 3.11 to 3.14.
+- Python 3.12 or later. `.python-version` pins development to 3.12, the minimum supported version, so `uv sync` and
+  `uv run` use it (uv downloads it if it isn't installed). `tox` tests 3.12 to 3.14; CI tests 3.12 and 3.14.
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [Git](https://git-scm.com/)
 - `make` to run the shortcuts below. Windows doesn't ship it; install it with `winget install ezwinports.make`
@@ -140,10 +140,10 @@ Run a single test or a narrower selection:
 uv run python -m pytest tests/test_foo.py -k some_case
 ```
 
-`tox.ini` runs the same tests across the supported Python versions (3.11 to 3.14), and the GitHub Actions workflow in
-`.github/workflows/main.yml` does the same on every pull request and push to `main`. Pull requests that touch only
-root Markdown files or `docs/` skip the matrix and mypy and run the tests once, and a final `ci-ok` job reports the
-overall result.
+`tox.ini` runs the same tests across the supported Python versions (3.12 to 3.14), and the GitHub Actions workflow in
+`.github/workflows/main.yml` runs them on the oldest and newest (3.12 and 3.14) on every pull request and push to
+`main`. Pull requests that touch only root Markdown files or `docs/` skip the matrix and mypy and run the tests once,
+and a final `ci-ok` job reports the overall result.
 Draft pull requests run nothing until they're marked ready for review.
 
 ## Releasing
